@@ -1,0 +1,14 @@
+main {
+  min-height: 50em;
+  color: white;
+}
+
+body {
+  background-image: url(../img/background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+p {
+  font: 1.5em sans-serif;
+}

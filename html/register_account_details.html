@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../css/register_account_details.css" />
+
+  <title>Register</title>
+</head>
+
+<body>
+  <div class="register_image"></div>
+  <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
+    <div class="toast-container">
+      <div class="toast rounded" role="alert" aria-live="assertive" aria-atomic="true" id="email_duplicate_toast">
+        <div class="d-flex alert-warning rounded">
+          <div class="toast-body">
+            <b>Something went wrong!</b> The email is already registered.
+          </div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true"
+        id="username_duplicate_toast">
+        <div class="d-flex alert-warning rounded">
+          <div class="toast-body">
+            <b>Something went wrong!</b> The username is already registered.
+          </div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="error_toast">
+        <div class="d-flex alert-danger rounded">
+          <div class="toast-body">
+            <b>Something went wrong! </b><span id="error_text"></span>
+          </div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main class="register_form">
+    <form onsubmit="return validateInput();" method="post">
+      <h1 class="h3 mb-3 fw-normal">Personal Data</h1>
+      <p class="m-2">To get started, we need some information about you.</p>
+      <input type="text" class="form-control mb-3" placeholder="Username" id="username_input" required minlength="3"
+        maxlength="45" autocomplete="username" />
+      <input type="email" class="form-control mb-3" placeholder="name@example.com" id="email_input" required
+        autocomplete="email" maxlength="45" />
+      <input type="password" class="form-control" placeholder="Password" id="password_input" autocomplete="new-password"
+        required />
+      <span class="show-hide-pwd-eye" onclick="showHidePwd()">
+        <img src="../img/eye.svg" alt="Eye to show/hide password" />
+      </span>
+      <div class="d-flex justify-content-center" style="clear: right">
+        <button class="btn btn-lg btn-primary m-2" type="submit">
+          Sign Up
+        </button>
+      </div>
+
+      <p class="m-3" style="color: grey">&copy; 2021 individumeal.com</p>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+  <script src="../js/register_user_website/validate_input.js"></script>
+  <script src="../js/register_user_website/register_user.js"></script>
+</body>
+
+</html>
