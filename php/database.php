@@ -24,7 +24,6 @@ function connect_local(){
 
 function get_user_by_mail($conn, $email){
   if($conn == null || $email == null){
-    echo "Input parameter(s) is/are missing";
     return null;
   }
   $email = validate_input($email);
@@ -37,9 +36,23 @@ function get_user_by_mail($conn, $email){
   return $result;
 }
 
+function get_user_by_username($conn, $username){
+  if($conn == null || $username == null){
+    return null;
+  }
+  $username = validate_input($username);
+  //Preventing Sql-Injection with prepared statements
+  $sql = "select * from User where Username = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $username);
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $result;
+}
+
 function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $password, $email){
   if($firstName == null || $lastName == null || $dateOfBirth == null || $gender == null || $password == null || $email == null){
-    echo "Input parameter(s) is/are missing";
+    echo "Input parameter(s) is/are missing \n";
     return false;
   }
   $password = hash("sha256", $password);

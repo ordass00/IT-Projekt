@@ -1,0 +1,3 @@
+.presonal-details-input, main {min-height: 30em;}
+
+#alert_email_duplicate, #alert_username_duplicate, #alert_empty_fields {visibility: hidden;}
