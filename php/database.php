@@ -58,4 +58,18 @@ function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $password
   }
   return true;
 }
+
+function get_preferences_by_user_id($user_id, $conn){
+  $sql = "SELECT * from preferences WHERE user_id= ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $user_id);
+  $stmt->execute();
+  if($stmt->rowCount() == 1){
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  } else {
+    //To Do: redirect to  preference side
+    header("location: preferences.php");
+  }
+}
 ?>
