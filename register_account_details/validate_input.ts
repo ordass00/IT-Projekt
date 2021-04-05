@@ -1,7 +1,7 @@
 import {showToastErrorMessage, showToastMessage} from "../shared/js/shared_functions.js";
-import {registerUser} from "./register_user";
+import {registerUser} from "./register_user.js";
 
-function validateInput(): boolean {
+export function validateInput(): boolean {
   let email = (document.getElementById("email_input") as HTMLInputElement).value;
   let username = (document.getElementById("username_input") as HTMLInputElement).value;
 
@@ -39,13 +39,13 @@ function checkDuplicatesEmail(email: string): void {
       if (data.errorText == "The email is already registered.") {
         showToastMessage("email_duplicate_toast");
       } else if (data.error) {
-        showToastErrorMessage("error_toast", data.errorText);
+        showToastErrorMessage("error_toast", "error_text", data.errorText);
       } else {
         localStorage.setItem("email_success", "true");
       }
     })
     ["catch"](function (error) {
-    showToastErrorMessage("error_toast", error.errorText);
+    showToastErrorMessage("error_toast", "error_text", error.errorText);
     });
 }
 
@@ -69,12 +69,12 @@ function checkDuplicatesUsername(username: string): void {
       if (data.errorText == "The username is already registered.") {
         showToastMessage("username_duplicate_toast");
       } else if (data.error) {
-        showToastErrorMessage("error_toast", data.errorText);
+        showToastErrorMessage("error_toast", "error_text", data.errorText);
       } else {
         localStorage.setItem("username_success", "true");
       }
     })
     ["catch"](function (error) {
-    showToastErrorMessage("error_toast", error.errorText);
+    showToastErrorMessage("error_toast", "error_text", error.errorText);
     });
 }
