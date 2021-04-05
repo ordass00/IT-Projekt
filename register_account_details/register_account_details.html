@@ -7,7 +7,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../css/register_account_details.css" />
+  <link rel="stylesheet" href="register_account_details.css" />
 
   <title>Register</title>
 </head>
@@ -55,8 +55,8 @@
         autocomplete="email" maxlength="45" />
       <input type="password" class="form-control" placeholder="Password" id="password_input" autocomplete="new-password"
         required />
-      <span class="show-hide-pwd-eye" onclick="showHidePwd()">
-        <img src="../img/eye.svg" alt="Eye to show/hide password" />
+      <span class="show-hide-pwd-eye" onclick="showHidePassword()">
+        <img src="../shared/img/eye.svg" alt="Eye to show/hide password" />
       </span>
       <div class="d-flex justify-content-center" style="clear: right">
         <button class="btn btn-lg btn-primary m-2" type="submit">
@@ -71,8 +71,12 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script>
-  <script src="../js/register_user_website/validate_input.js"></script>
-  <script src="../js/register_user_website/register_user.js"></script>
+    <script type="module">
+      import {showHidePassword} from "../shared/js/shared_functions.js";
+      import {validateInput} from "./validate_input.js";
+      window.showHidePassword = showHidePassword;
+      window.validateInput = validateInput;
+    </script>
 </body>
 
 </html>

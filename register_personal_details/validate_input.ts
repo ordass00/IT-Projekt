@@ -7,5 +7,5 @@ function register_user():void{
     window.localStorage["firstName"] = firstname;
     window.localStorage["lastName"] = lastname;
     window.localStorage["gender"] = gender;
-    window.localStorage["date_of_birth"] = date_of_birth;
+    window.localStorage["dateOfBirth"] = date_of_birth;
 }

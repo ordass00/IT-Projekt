@@ -1,5 +1,5 @@
 <?php
-include "../database.php";
+include "../shared/php/database.php";
 
 $conn = connect_local();
 

@@ -3,7 +3,7 @@ body, html {
 }
 
 .login-image {
-    background-image: url("../img/background.jpg");
+    background-image: url("../shared/img/background.jpg");
     filter: blur(8px);
     -webkit-filter: blur(8px);
     height: 100%;
