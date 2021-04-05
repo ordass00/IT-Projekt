@@ -4,7 +4,7 @@ main {
 }
 
 body {
-  background-image: url(../img/background.jpg);
+  background-image: url(../shared/img/background.jpg);
   background-size: cover;
   background-attachment: fixed;
 }

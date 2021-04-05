@@ -1,5 +1,5 @@
 <?php
-require_once("database.php");
+require_once("../shared/php/database.php");
 
 function try_to_login()
 {
