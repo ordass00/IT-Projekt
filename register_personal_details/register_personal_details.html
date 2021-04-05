@@ -6,58 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="register_personal_details.css">
 
     <title>Register Personal Details</title>
 </head>
 
 <body>
-<div class="login-image"></div>
-<main class="d-flex align-items-center justify-content-center login-form">
-    <div>
-        <div class="d-flex align-items-center justify-content-center">
-            <h1 class="m-2">Register Personal Details</h1>
-        </div>
-        <p class="m-2">To get started, we need some information about you.</p>
-        <form id="personal_details_registration_form" action="../register_account_details/register_account_details.html">
+    <div class="login-image"></div>
+    <main class="d-flex align-items-center justify-content-center login-form">
+        <div>
             <div class="d-flex align-items-center justify-content-center">
-                <div class="form-group">
-                    <input id="firstname_input" type="text" class="form-control m-2" placeholder="Firstname" name="firstname" autocomplete="given-name" required
-                           minlength="2" maxlength="10">
-                    <input id="lastname_input" type="text" class="form-control m-2" placeholder="Lastname" name="lastname" autocomplete="family-name" required
-                           minlength="2" maxlength="10">
-                    <div class="input-group m-2">
-                        <label class="input-group-text" for="sex_input">Sex:</label>
-                        <select class="form-select" id="sex_input" required>
-                            <option selected disabled value="">Choose...</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Diverse">Diverse</option>
-                        </select>
-                    </div>
-                    <div class="input-group m-2">
-                        <label class="input-group-text" for="date_of_birth_input">Birthday:</label>
-                        <input id="date_of_birth_input" type="date" class="form-control" placeholder="Date of birth" name="date_of_birth" autocomplete="bday"
-                           required min="1921-01-01" step="1" max="2008-01-01">
-                    </div>
-                </div>
+                <h1 class="m-2">Register Personal Details</h1>
             </div>
-            <div class="row m-2">
-                <div class="col-6 d-flex">
-                    <button type="submit" class="btn btn-primary btn-lg m-3">Back</button>
+            <p class="m-2">To get started, we need some information about you.</p>
+            <form id="personal_details_registration_form"
+                action="../register_account_details/register_account_details.html">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="form-group">
+                        <input id="firstname_input" type="text" class="form-control m-2" placeholder="Firstname"
+                            name="firstname" autocomplete="given-name" required minlength="2" maxlength="10">
+                        <input id="lastname_input" type="text" class="form-control m-2" placeholder="Lastname"
+                            name="lastname" autocomplete="family-name" required minlength="2" maxlength="10">
+                        <div class="input-group m-2">
+                            <label class="input-group-text" for="sex_input">Sex:</label>
+                            <select class="form-select" id="sex_input" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Diverse">Diverse</option>
+                            </select>
+                        </div>
+                        <div class="input-group m-2">
+                            <label class="input-group-text" for="date_of_birth_input">Birthday:</label>
+                            <input id="date_of_birth_input" type="date" class="form-control" placeholder="Date of birth"
+                                name="date_of_birth" autocomplete="bday" required min="1921-01-01" step="1"
+                                max="2008-01-01">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-6 d-flex justify-content-end">
-                    <button class="btn btn-primary btn-lg m-3" type="submit" form="personal_details_registration_form" onclick="register_user();">Next</button>
+                <div class="row m-2">
+                    <div class="col-6 d-flex">
+                        <a href="../index/index.html"><button type="button" for="form_back_button"
+                                class="btn btn-primary btn-lg m-3">Back</button></a>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <button class="btn btn-primary btn-lg m-3" type="submit"
+                            form="personal_details_registration_form" onclick="register_user();">Next</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-</main>
+            </form>
+        </div>
+    </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-<script src="validate_input.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <script src="validate_input.js"></script>
 </body>
 
 </html>

@@ -8,7 +8,8 @@ export function registerUser(): void {
     let gender: string = window.localStorage["gender"];
     let firstName: string = window.localStorage["firstName"];
     let lastName: string = window.localStorage["lastName"];
-    let dateOfBirth: Date = window.localStorage["dateOfBirth"];
+    let dateOfBirthString: string = window.localStorage["dateOfBirth"];
+    let dateOfBirth: Date = new Date(dateOfBirthString);
 
     setUser(firstName, lastName, dateOfBirth, gender, username, email, password);
 }
@@ -37,10 +38,10 @@ function setUser(firstName: string, lastName: string, dateOfBirth: Date, gender:
         })
         .then(function (data: any) {
             if (data.error) {
-                showToastErrorMessage("error_toast", data.errorText);
+                showToastErrorMessage("error_toast", "error_text", data.errorText);
             }
         })
         ["catch"](function (error: { error: string; errorText: string }) {
-        showToastErrorMessage("error_toast", error.errorText);
+        showToastErrorMessage("error_toast", "error_text", error.errorText);
     });
 }

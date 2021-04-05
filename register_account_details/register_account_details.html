@@ -71,9 +71,12 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script>
-  <script src="shared/shared_functions.js"></script>
-  <script src="validate_input.js"></script>
-  <script src="register_user.js"></script>
+    <script type="module">
+      import {showHidePassword} from "../shared/js/shared_functions.js";
+      import {validateInput} from "./validate_input.js";
+      window.showHidePassword = showHidePassword;
+      window.validateInput = validateInput;
+    </script>
 </body>
 
 </html>

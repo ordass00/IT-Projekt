@@ -12,8 +12,13 @@ try_to_login();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="login.css">
-    <script src="login.js"></script>
-    <script src="../shared/shared_functions.js"></script>
+    <script type="module">
+        import {successfullyRegisteredToast} from "./login.js";
+        import {showHidePassword, showToastErrorMessage} from "../shared/js/shared_functions.js";
+        window.successfullyRegisteredToast = successfullyRegisteredToast;
+        window.showHidePassword = showHidePassword;
+        window.showToastErrorMessage = showToastErrorMessage;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <title>Login</title>
@@ -69,7 +74,7 @@ try_to_login();
     <?php
     if (!empty($_POST['login_err'])) {
         $login_err = $_POST['login_err'];
-        echo "<script>showToastErrorMessage('error_toast', '$login_err');</script>";
+         echo "<script>showToastErrorMessage('error_toast','error_text','$login_err');</script>";
     }
     ?>
 </main>
