@@ -7,7 +7,7 @@ export function showHidePassword(): void {
     }
 }
 
-export function showToastErrorMessage(id: string, textFieldId:string err_message: string): void {
+export function showToastErrorMessage(id: string, textFieldId:string, err_message: string): void {
     let toastHTMLElement = document.getElementById(id);
     document.getElementById(textFieldId).textContent = err_message;
     let toastElement = new bootstrap.Toast(toastHTMLElement);
