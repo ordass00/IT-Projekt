@@ -14,7 +14,7 @@ html {
   width: 100%;
 }
 .register_image {
-  background-image: url("../img/background.jpg");
+  background-image: url("../shared/img/background.jpg");
   filter: blur(8px);
   -webkit-filter: blur(8px);
   height: 100%;
