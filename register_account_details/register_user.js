@@ -19,7 +19,7 @@ function setUser(firstName, lastName, dateOfBirth, gender, username, email, pass
         email: email,
         password: password
     };
-    fetch("../php/register_account_details/register_account_details.php", {
+    fetch("register_account_details.php", {
         method: "POST",
         body: JSON.stringify(reqObj)
     })

@@ -1,8 +1,6 @@
 function validateInput() {
-    var email = document.getElementById("email_input")
-        .value;
-    var username = document.getElementById("username_input")
-        .value;
+    var email = document.getElementById("email_input").value;
+    var username = document.getElementById("username_input").value;
     checkDuplicatesEmail(email);
     checkDuplicatesUsername(username);
     registerUser();
@@ -21,7 +19,7 @@ function showHidePwd() {
 function checkRegistrationSuccess() {
     if (window.localStorage["email_success"] == "true" && window.localStorage["username_success"] == "true") {
         localStorage.setItem("registered", "true");
-        window.location.href = "../php/login.php";
+        window.location.href = "../login/login_form.php";
     }
 }
 function checkDuplicatesEmail(email) {
@@ -30,7 +28,7 @@ function checkDuplicatesEmail(email) {
         method: "check_duplicates_email",
         email: email
     };
-    fetch("../php/register_account_details/register_account_details.php", {
+    fetch("register_account_details.php", {
         method: "POST",
         body: JSON.stringify(reqObj)
     })
@@ -68,7 +66,7 @@ function checkDuplicatesUsername(username) {
         method: "check_duplicates_username",
         username: username
     };
-    fetch("../php/register_account_details/register_account_details.php", {
+    fetch("register_account_details.php", {
         method: "POST",
         body: JSON.stringify(reqObj)
     })
