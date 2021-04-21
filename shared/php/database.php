@@ -96,7 +96,6 @@ function get_preferences_by_user_id($user_id, $conn){
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
   } else {
-    //To Do: redirect to  preference side
     header("location: preferences.php");
   }
 }
@@ -108,5 +107,39 @@ function set_ingredients($conn, $ingredients, $user_id){
   $sql = "insert into Ingredients(IngredientsAtHome, User_ID) values (:ingredients, :user_id);";
   $stmt = $conn->prepare($sql);
   $result = $stmt->execute(array(":ingredients" => $ingredients, ":user_id" => $user_id));
+  return $result;
+}
+
+function set_password_reset($conn, $user_id, $password_reset){
+  $sql = "update User set PasswordReset = ? where ID = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $password_reset);
+  $stmt->bindParam(2, $user_id);
+  $result = $stmt->execute();
+  return $result;
+}
+function get_password_reset($conn, $user_id){
+  $sql = "select PasswordReset from User where ID = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $user_id);
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function reset_password($conn, $user_id, $new_password){
+  $sql = "update User set Password = ? where ID = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $new_password);
+  $stmt->bindParam(2, $user_id);
+  $result = $stmt->execute();
+  return $result;
+}
+
+function clear_password_reset($conn, $user_id){
+  $sql = "update User set PasswordReset = null where ID = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $user_id);
+  $result = $stmt->execute();
   return $result;
 }
