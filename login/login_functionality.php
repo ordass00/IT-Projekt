@@ -28,12 +28,10 @@ function try_to_login()
                         $_SESSION["username"] = $row["username"];
                         $preferences = get_preferences_by_user_id($conn, $user_id);
                         if ($preferences == false) {
-                            //To Do: redirect to  preference side
-                            header("location: preferences.html");
+                            header("location: ../save_preferences/save_preferences.php");
                         } else {
+                            $_SESSION["intolerances"] = $preferences["intolerances"];
                             $_SESSION["diettype"] = $preferences["DietType"];
-                            $_SESSION["glutenfree"] = $preferences["GlutenFree"];
-                            $_SESSION["sugarfree"] = $preferences["SugarFree"];
                             $_SESSION["calories"] = $preferences["Calories"];
                             //To Do: needs to be point to main page after login
                             header("location: welcome.php");

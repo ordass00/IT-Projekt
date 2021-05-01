@@ -13,9 +13,10 @@ try_to_login();
          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="login.css">
     <script type="module">
-        import {successfullyRegisteredToast} from "./login.js";
+        import {successfullyRegisteredToast, successfullyResetedToast} from "./login.js";
         import {showHidePassword} from "../shared/js/shared_functions.js";
         window.successfullyRegisteredToast = successfullyRegisteredToast;
+        window.successfullyResetedToast = successfullyResetedToast;
         window.showHidePassword = showHidePassword;
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -40,6 +41,15 @@ try_to_login();
                 <div class="d-flex alert-danger rounded">
                     <div class="toast-body">
                         <b>Something went wrong!</b><br><span id="error_text"></span>
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            
+            <div class="toast rounded" role="alert" aria-live="assertive" aria-atomic="true" id="successfully_reseted_password_toast">
+                <div class="d-flex alert-success rounded">
+                    <div class="toast-body">
+                        <b>Success!</b> Your password has been successfully reseted!
                     </div>
                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
