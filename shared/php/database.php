@@ -1,6 +1,6 @@
 <?php
-include "config.php";
-include "input.php";
+include_once "config.php";
+include_once "input.php";
 
 function connect_server()
 {
@@ -99,4 +99,18 @@ function get_preferences_by_user_id($conn, $user_id)
   } else {
     return false;
   }
+  
 }
+
+function set_ingredients($conn, $ingredients, $user_id){
+  $ingredients = validate_input($ingredients);
+  $ingredients = json_encode($ingredients);
+  $ingredients = str_replace("&quot;", '"', $ingredients);
+  $sql = "insert into Ingredients(IngredientsAtHome, User_ID) values (:ingredients, :user_id);";
+  $stmt = $conn->prepare($sql);
+  $result = $stmt->execute(array(":ingredients" => $ingredients, ":user_id" => $user_id));
+  return $result;
+}
+
+
+
