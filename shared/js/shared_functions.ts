@@ -8,6 +8,9 @@ export function showHidePassword(): void {
 }
 
 export function showToastErrorMessage(id: string, textFieldId:string, err_message: string): void {
+    if(err_message == ""){
+        err_message = "An uknown error occured";
+    }
     let toastHTMLElement = document.getElementById(id);
     document.getElementById(textFieldId).textContent = err_message;
     let toastElement = new bootstrap.Toast(toastHTMLElement);
