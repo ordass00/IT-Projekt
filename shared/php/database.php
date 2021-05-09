@@ -57,7 +57,7 @@ function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $username
   if ($firstName == null || $lastName == null || $dateOfBirth == null || $gender == null || $password == null || $email == null || $username == null) {
     return false;
   }
-  $password = hash("sha256", $password);
+  $password = password_hash($password, PASSWORD_BCRYPT);
   $firstName = validate_input($firstName);
   $lastName = validate_input($lastName);
   $dateOfBirth = validate_input($dateOfBirth);
@@ -87,18 +87,19 @@ function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $username
   return true;
 }
 
-function get_preferences_by_user_id($user_id, $conn){
+function get_preferences_by_user_id($conn, $user_id)
+{
   $sql = "SELECT * from preferences WHERE user_id= ?";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $user_id);
   $stmt->execute();
-  if($stmt->rowCount() == 1){
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  if ($stmt->rowCount() == 1) {
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result;
   } else {
-    //To Do: redirect to  preference side
-    header("location: preferences.php");
+    return false;
   }
+  
 }
 
 function set_ingredients($conn, $ingredients, $user_id){
@@ -110,3 +111,6 @@ function set_ingredients($conn, $ingredients, $user_id){
   $result = $stmt->execute(array(":ingredients" => $ingredients, ":user_id" => $user_id));
   return $result;
 }
+
+
+
