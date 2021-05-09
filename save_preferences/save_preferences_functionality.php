@@ -23,6 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         insert_preferences($conn, $intolerances, $diet_type, $calories, $user_id);
         //To Do: needs to point to main page after saving the preferences
-        header("location: welcome.php");
+        header("location: ../ingredients_input/ingredients_input.php");
     }
 }

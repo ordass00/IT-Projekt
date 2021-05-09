@@ -74,9 +74,9 @@ try_to_login();
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column">
                     <label>Don't have an account?</label>
-                    <a href="register.php">Sign up</a>
+                    <a href="../register_personal_details/register_personal_details.html">Sign up</a>
                 </div>
-                <a href="register.example.com">Forgot your password?</a>
+                <a href="../reset_password/reset_password.html">Forgot your password?</a>
             </div>
             <p class="mt-3 mb-3 text-muted">&copy; 2021 individumeal.com</p>
         </form>
