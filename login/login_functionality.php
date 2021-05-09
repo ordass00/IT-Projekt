@@ -7,41 +7,37 @@ function try_to_login()
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         session_destroy();
         //To Do: needs to point to main page after login
-        header("location: welcome.php");
+        //header("location: welcome.php");
         exit;
     }
-
     $conn = connect_local();
-    $email = $password = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $sql = "SELECT email, password FROM user WHERE email= ? AND password= ?";
+        $sql = "SELECT id, username, email, password FROM user WHERE email= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(1, $_POST["email"]);
-        $stmt->bindParam(2, $_POST["password"]);
         if ($stmt->execute()) {
             if ($stmt->rowCount() == 1) {
                 if ($row = $stmt->fetch()) {
                     $user_id = $row["id"];
-                    $email = $row["email"];
-                    $username = $row["username"];
                     $hashed_password = $row["password"];
-                    //To Do: password is not yet hashed in the db
-                    #if(password_verify($password, $hashed_password)){
-                    if ($password === $hashed_password) {
-                        session_start();
-                        $preferences = get_preferences_by_user_id($user_id, $conn);
-                        $_SESSION["diettype"] = $preferences[1];
-                        $_SESSION["glutenfree"] = $preferences[2];
-                        $_SESSION["sugarfree"] = $preferences[3];
-                        $_SESSION["calories"] = $preferences[4];
+                    $password = $_POST["password"];
+                    if (password_verify($password, $hashed_password)) {
                         $_SESSION["loggedin"] = true;
-                        $_SESSION["email"] = $email;
-                        $_SESSION["username"] = $username;
-                        //To Do: needs to be point to main page after login
-                        header("location: welcome.php");
+                        $_SESSION["userid"] = $user_id;
+                        $_SESSION["username"] = $row["username"];
+                        $preferences = get_preferences_by_user_id($conn, $user_id);
+                        if ($preferences == false) {
+                            //To Do: redirect to  preference side
+                            header("location: preferences.html");
+                        } else {
+                            $_SESSION["diettype"] = $preferences["DietType"];
+                            $_SESSION["glutenfree"] = $preferences["GlutenFree"];
+                            $_SESSION["sugarfree"] = $preferences["SugarFree"];
+                            $_SESSION["calories"] = $preferences["Calories"];
+                            //To Do: needs to be point to main page after login
+                            header("location: welcome.php");
+                        }
                     } else {
                         $_POST["login_err"] = "Invalid email or password.";
                     }

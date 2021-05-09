@@ -33,7 +33,7 @@
         if ($success === 0) {
             echo "<script>showToastErrorMessage('error_toast', 'error_text', ' Not able to set user ingredients.');</script>";
         } else {
-            //Umleiten
+            //TODO Umleiten
         }
     }
     ?>
