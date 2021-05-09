@@ -1,6 +1,6 @@
 <?php
-include "config.php";
-include "input.php";
+include_once "config.php";
+include_once "input.php";
 
 function connect_server()
 {
@@ -104,5 +104,50 @@ function get_preferences_by_user_id($conn, $user_id)
 function insert_preferences($conn, $intolerances, $diet_type, $calories, $user_id){
   $sql = "INSERT INTO preferences(intolerances, DietType, Calories, User_ID) VALUES (:intolerances, :diettype, :calories, :userid)";
   $statement = $conn->prepare($sql);
-  $statement->execute(["intolerances" => $intolerances, "diettype" => $diet_type, "calories" => $calories, "userid" => $user_id]);
+  $statement->execute(["intolerances" => $intolerances, "diettype" => $diet_type, "calories" => $calories, "userid" => $user_id]); 
+}
+
+function set_ingredients($conn, $ingredients, $user_id){
+  $ingredients = validate_input($ingredients);
+  $ingredients = json_encode($ingredients);
+  $ingredients = str_replace("&quot;", '"', $ingredients);
+  $sql = "insert into Ingredients(IngredientsAtHome, User_ID) values (:ingredients, :user_id);";
+  $stmt = $conn->prepare($sql);
+  $result = $stmt->execute(array(":ingredients" => $ingredients, ":user_id" => $user_id));
+  return $result;
+}
+
+function set_password_reset($conn, $user_id, $password_reset){
+  $sql = "update User set PasswordReset = ? where ID = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $password_reset);
+  $stmt->bindParam(2, $user_id);
+  $result = $stmt->execute();
+  return $result;
+}
+
+function get_password_reset($conn, $user_id){
+  $sql = "select PasswordReset from User where ID = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $user_id);
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function reset_password($conn, $user_id, $new_password){
+  $sql = "update User set Password = ? where ID = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $new_password);
+  $stmt->bindParam(2, $user_id);
+  $result = $stmt->execute();
+  return $result;
+}
+
+function clear_password_reset($conn, $user_id){
+  $sql = "update User set PasswordReset = null where ID = ?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $user_id);
+  $result = $stmt->execute();
+  return $result;
 }
