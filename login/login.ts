@@ -6,3 +6,10 @@ export function successfullyRegisteredToast(): void {
         localStorage.clear();
     }
 }
+
+export function successfullyResetedToast(): void {
+    if (window.localStorage["password_reset"] == "success") {
+        showToastMessage("successfully_reseted_password_toast");
+        localStorage.clear();
+    }
+}
