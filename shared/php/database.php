@@ -99,7 +99,12 @@ function get_preferences_by_user_id($conn, $user_id)
   } else {
     return false;
   }
-  
+}
+
+function insert_preferences($conn, $intolerances, $diet_type, $calories, $user_id){
+  $sql = "INSERT INTO preferences(intolerances, DietType, Calories, User_ID) VALUES (:intolerances, :diettype, :calories, :userid)";
+  $statement = $conn->prepare($sql);
+  $statement->execute(["intolerances" => $intolerances, "diettype" => $diet_type, "calories" => $calories, "userid" => $user_id]); 
 }
 
 function set_ingredients($conn, $ingredients, $user_id){
@@ -120,6 +125,7 @@ function set_password_reset($conn, $user_id, $password_reset){
   $result = $stmt->execute();
   return $result;
 }
+
 function get_password_reset($conn, $user_id){
   $sql = "select PasswordReset from User where ID = ?;";
   $stmt = $conn->prepare($sql);
