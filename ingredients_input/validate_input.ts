@@ -16,3 +16,4 @@ function checkIngredientList(): boolean {
         }
     }
     return true;
+}

@@ -5,10 +5,9 @@ export function successfullyRegisteredToast() {
         localStorage.clear();
     }
 }
-
-export function successfullyResetedToast() {
+export function successfullyResetToast() {
     if (window.localStorage["password_reset"] == "success") {
-        showToastMessage("successfully_reseted_password_toast");
+        showToastMessage("successfully_reset_password_toast");
         localStorage.clear();
     }
 }

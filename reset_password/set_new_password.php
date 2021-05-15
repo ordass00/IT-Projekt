@@ -24,7 +24,9 @@
 </head>
 
 <body>
-    <?php 
+    <?php
+    error_reporting(0);
+    ini_set('display_errors', 0); 
     $token = $_GET["token"];
     $id = $_GET["id"];
     echo "<span hidden id='u_id'>".$id."</span>";
