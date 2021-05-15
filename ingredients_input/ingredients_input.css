@@ -1,8 +1,8 @@
-body,
-html {
+body, html {
   height: 100%;
   overflow: hidden;
 }
+
 .toasts {
   position: fixed;
   right: 0;
@@ -13,6 +13,19 @@ html {
   min-height: 10em;
   width: 100%;
 }
+
+nav a, nav p {
+  font: 1.25em sans-serif !important;
+}
+
+nav {
+  position: absolute !important;
+  top: 0em;
+  left: 0em;
+  z-index: 2;
+  width: 100%;
+}
+
 .ingredients_image {
   background-image: url("../shared/img/background.jpg");
   filter: blur(8px);
@@ -40,9 +53,7 @@ html {
   text-align: center;
 }
 
-.ingredients_form .checkbox,
-label,
-a {
+.ingredients_form .checkbox, label, a {
   font-weight: 400;
 }
 
@@ -60,7 +71,6 @@ a {
   float: right;
   position: relative;
   z-index: 5;
-
   cursor: pointer;
 }
 

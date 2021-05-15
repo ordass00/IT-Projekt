@@ -7,9 +7,9 @@ export function successfullyRegisteredToast(): void {
     }
 }
 
-export function successfullyResetedToast(): void {
+export function successfullyResetToast(): void {
     if (window.localStorage["password_reset"] == "success") {
-        showToastMessage("successfully_reseted_password_toast");
+        showToastMessage("successfully_reset_password_toast");
         localStorage.clear();
     }
 }
