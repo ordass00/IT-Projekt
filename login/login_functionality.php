@@ -33,8 +33,8 @@ function try_to_login()
                             $_SESSION["intolerances"] = $preferences["intolerances"];
                             $_SESSION["diettype"] = $preferences["DietType"];
                             $_SESSION["calories"] = $preferences["Calories"];
-                            //To Do: needs to be point to main page after login
-                            header("location: welcome.php");
+                            //TODO redirect to user overview. At the moment it will redirect to meal_plan_overview
+                            header("location: ../meal_plan_overview/meal_plan_overview.php");
                         }
                     } else {
                         $_POST["login_err"] = "Invalid email or password.";
