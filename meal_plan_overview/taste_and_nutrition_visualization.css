@@ -1,0 +1,21 @@
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+
+#anchor {
+    font-weight: bold;
+}
+
+div .spoonacular-caption {
+    font-size: 3em;
+}
+
+div .spoonacular-quickview {
+    font-size: 1.25em;
+}
+
+div .spoonacular-nutrient-name {
+    font-size: 1em;
+}
+

@@ -11,16 +11,28 @@ session_start();
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="../shared/css/shared_toasts.css"/>
+    <link rel="stylesheet" href="../shared/css/shared_overlay.css"/>
+    <link rel="stylesheet" href="../shared/css/shared_background2.css"/>
     <link rel="stylesheet" href="meal_plan_overview.css">
     <script type="module">
-        import {getRecipesByUserId} from "./get_recipes.js";
+        import {
+            getRecipesByUserId,
+            printDiv,
+            changeWebsiteToTasteAndNutritionVisualization,
+            incrementCurrentMealNr
+        } from "./get_recipes.js";
+
         getRecipesByUserId(<?php echo $_SESSION['userid']; ?>);
+        window.printDiv = printDiv;
+        window.changeWebsiteToTasteAndNutritionVisualization = changeWebsiteToTasteAndNutritionVisualization;
+        window.incrementCurrentMealNr = incrementCurrentMealNr;
     </script>
 
     <title>Meal Plan Overview</title>
 </head>
 <body>
-<div class="meal-plan-overview-image"></div>
+<div class="background_image_normal"></div>
 <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
     <div class="toast-container">
         <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true"
@@ -35,46 +47,88 @@ session_start();
         </div>
     </div>
 </div>
-<main class="d-flex align-items-center justify-content-center card-design">
-    <div>
-        <div class="d-flex align-items-center justify-content-center">
-            <h1 class="m-3" style="color:white;">Meal plan overview</h1>
+<div id="overlay" class="overlay">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-grow text-primary" role="status" style="width: 3rem; height: 3rem; z-index: 20;">
         </div>
-        <div class="card-group mx-5">
-            <div class="card text-center d-flex">
+    </div>
+</div>
+<main class="d-flex align-items-center justify-content-center card-design">
+    <div id="anchor" style="display:none">
+        <div class="d-flex align-items-center justify-content-center">
+            <h1 class="m-3">Meal Plan Overview</h1>
+        </div>
+        <div class="card-group">
+            <div class="card text-center d-flex border-0">
                 <h3 class="card-header">Breakfast</h3>
                 <img id="breakfast_image_id" src="../shared/img/background.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h3 id="breakfast_title_id" class="card-title">Card title</h3>
-                    <h6 class="mt-4">Used Ingredients:</h6>
-                    <ul id="breakfast_used_ingredients_list_id" class="list-group"></ul>
-                    <h6 class="mt-4">Missed Ingredients:</h6>
-                    <ul id="breakfast_missed_ingredients_list_id" class="list-group"></ul>
-                    <a href="#" class="btn btn-primary mt-4">Go somewhere</a>
+                    <h3 id="breakfast_title_card_id"
+                        class="card-title d-flex align-items-center justify-content-center">Card title</h3>
+                    <div id="printable_area_breakfast" style="display: none;">
+                        <h3 id="breakfast_title_print_id" class="card-title">Card title</h3>
+                        <h6 class="mt-4">Used Ingredients:</h6>
+                        <ul id="breakfast_used_ingredients_list_id" class="list-group"></ul>
+                        <h6 class="mt-4">Missed Ingredients:</h6>
+                        <ul id="breakfast_missed_ingredients_list_id" class="list-group"></ul>
+                    </div>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="printDiv('printable_area_breakfast')" value="Print Shopping List"/>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="changeWebsiteToTasteAndNutritionVisualization('breakfast')"
+                           value="Taste And Nutrition Visualization"/>
+                    <a href="#" class="btn btn-primary mt-4">Cook Instructions</a>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="incrementCurrentMealNr(<?php echo $_SESSION['userid']; ?>, 'BreakfastNr')"
+                           value="Reroll Meal"/>
                 </div>
             </div>
-            <div class="card text-center d-flex">
+            <div class="card text-center d-flex border-0  mx-4">
                 <h3 class="card-header">Lunch</h3>
                 <img id="lunch_image_id" src="../shared/img/background.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h3 id="lunch_title_id" class="card-title">Card title</h3>
-                    <h6 class="mt-4">Used Ingredients:</h6>
-                    <ul id="lunch_used_ingredients_list_id" class="list-group"></ul>
-                    <h6 class="mt-4">Missed Ingredients:</h6>
-                    <ul id="lunch_missed_ingredients_list_id" class="list-group"></ul>
-                    <a href="#" class="btn btn-primary mt-4">Go somewhere</a>
+                    <h3 id="lunch_title_card_id" class="card-title d-flex align-items-center justify-content-center">
+                        Card title</h3>
+                    <div id="printable_area_lunch" style="display: none;">
+                        <h3 id="lunch_title_print_id" class="card-title">Card title</h3>
+                        <h6 class="mt-4">Used Ingredients:</h6>
+                        <ul id="lunch_used_ingredients_list_id" class="list-group"></ul>
+                        <h6 class="mt-4">Missed Ingredients:</h6>
+                        <ul id="lunch_missed_ingredients_list_id" class="list-group"></ul>
+                    </div>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="printDiv('printable_area_lunch')" value="Print Shopping List"/>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="changeWebsiteToTasteAndNutritionVisualization('lunch')"
+                           value="Taste And Nutrition Visualization"/>
+                    <a href="#" class="btn btn-primary mt-4">Cook Instructions</a>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="incrementCurrentMealNr(<?php echo $_SESSION['userid']; ?>, 'LunchNr')"
+                           value="Reroll Meal"/>
                 </div>
             </div>
-            <div class="card text-center d-flex">
+            <div class="card text-center d-flex border-0">
                 <h3 class="card-header">Dinner</h3>
                 <img id="dinner_image_id" src="../shared/img/background.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h3 id="dinner_title_id" class="card-title">Card title</h3>
-                    <h6 class="mt-4">Used Ingredients:</h6>
-                    <ul id="dinner_used_ingredients_list_id" class="list-group"></ul>
-                    <h6 class="mt-4">Missed Ingredients:</h6>
-                    <ul id="dinner_missed_ingredients_list_id" class="list-group"></ul>
-                    <a href="#" class="btn btn-primary mt-4">Go somewhere</a>
+                    <h3 id="dinner_title_card_id" class="card-title d-flex align-items-center justify-content-center">
+                        Card title</h3>
+                    <div id="printable_area_dinner" style="display: none;">
+                        <h3 id="dinner_title_print_id" class="card-title">Card title</h3>
+                        <h6 class="mt-4">Used Ingredients:</h6>
+                        <ul id="dinner_used_ingredients_list_id" class="list-group"></ul>
+                        <h6 class="mt-4">Missed Ingredients:</h6>
+                        <ul id="dinner_missed_ingredients_list_id" class="list-group"></ul>
+                    </div>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="printDiv('printable_area_dinner')" value="Print Shopping List"/>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="changeWebsiteToTasteAndNutritionVisualization('dinner')"
+                           value="Taste And Nutrition Visualization"/>
+                    <a href="#" class="btn btn-primary mt-4">Cook Instructions</a>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="incrementCurrentMealNr(<?php echo $_SESSION['userid']; ?>, 'DinnerNr')"
+                           value="Reroll Meal"/>
                 </div>
             </div>
         </div>
