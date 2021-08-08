@@ -3,48 +3,6 @@ body, html {
     overflow: hidden;
 }
 
-nav a, nav p {
-    font: 1.25em sans-serif !important;
-}
-
-nav {
-    position: absolute !important;
-    top: 0em;
-    left: 0em;
-    z-index: 2;
-    width: 100%;
-}
-
-.login-image {
-    background-image: url("../shared/img/background.jpg");
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.save-preferences-form {
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(152, 149, 158, 0.25);
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    min-width: 450px;
-    padding: 15px;
-    margin: auto;
-}
-
-.save-preferences-form, label, a {
-    font-weight: 400;
-}
-
 .range-wrap {
     position: relative;
     margin: 0 auto 3rem;
@@ -73,15 +31,4 @@ nav {
     background: rgb(152, 149, 158);
     top: -1px;
     left: 48%;
-}
-
-.toasts {
-    position: fixed;
-    right: 0;
-    left: 0;
-    top: 1%;
-    margin-right: auto;
-    margin-left: auto;
-    min-height: 10em;
-    width: 100%;
 }

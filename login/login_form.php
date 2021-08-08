@@ -11,6 +11,11 @@ try_to_login();
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../shared/css/shared_background.css">
+    <link rel="stylesheet" href="../shared/css/shared_pwd_hide_eye.css">
+    <link rel="stylesheet" href="../shared/css/shared_form.css">
+    <link rel="stylesheet" href="../shared/css/shared_nav.css">
+    <link rel="stylesheet" href="../shared/css/shared_toasts.css">
     <script type="module">
         import {
             successfullyRegisteredToast,
@@ -28,7 +33,7 @@ try_to_login();
 </head>
 
 <body onload="successfullyRegisteredToast(); successfullyResetToast();">
-    <div class="login-image"></div>
+    <div class="background_image"></div>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +85,7 @@ try_to_login();
         </div>
     </div>
 
-    <main class="login-form">
+    <main class="form">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <h1 class="h3 mb-3 fw-normal">Login</h1>
             <input type="email" class="form-control mb-3" name="email" placeholder="name@example.com" autocomplete="email" required>

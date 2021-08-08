@@ -2,15 +2,11 @@ main {
   font-weight: bold;
   color: black;
   position: relative;
-  top: 45%;
+  top: 50%;
   left: 50%;
   right: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
-  min-width: 450px;
   padding: 15px;
-  margin: auto;
-  min-height: 50em;
 }
 
 p, address {
@@ -23,8 +19,4 @@ body, html {
   background-image: url("../shared/img/background2.jpg");
   background-size: cover;
   background-attachment: fixed;
-}
-
-nav a, nav p {
-  font: 1.25em sans-serif !important;
 }

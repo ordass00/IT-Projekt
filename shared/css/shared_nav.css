@@ -1,0 +1,11 @@
+nav a, nav p {
+    font: 1.25em sans-serif !important;
+}
+
+nav {
+    position: absolute !important;
+    top: 0em;
+    left: 0em;
+    z-index: 2;
+    width: 100%;
+}

@@ -7,6 +7,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
     <link rel="stylesheet" href="ingredients_input.css" />
+    <link rel="stylesheet" href="../shared/css/shared_toasts.css"/>
+    <link rel="stylesheet" href="../shared/css/shared_background.css"/>
+    <link rel="stylesheet" href="../shared/css/shared_form.css"/>
+    <link rel="stylesheet" href="../shared/css/shared_nav.css"/>
 
     <title>Ingredients</title>
 
@@ -37,7 +41,7 @@
         }
     }
     ?>
-    <div class="ingredients_image"></div>
+    <div class="background_image"></div>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +83,7 @@
             </div>
         </div>
     </div>
-    <main class="ingredients_form">
+    <main class="form">
         <form onsubmit="return validateInput();" method="post" id="ingredients_form" action="ingredients_input.php">
             <h1 class="m-2">Ingredients</h1>
             <p class="m-2">Tell us, which ingredients you have at home.</p>

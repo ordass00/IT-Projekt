@@ -12,7 +12,3 @@ body {
 p {
   font: 1.5em sans-serif;
 }
-
-nav a, nav p {
-  font: 1.25em sans-serif !important;
-}

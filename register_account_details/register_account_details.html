@@ -8,12 +8,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
   <link rel="stylesheet" href="register_account_details.css" />
-
+  <link rel="stylesheet" href="../shared/css/shared_toasts.css" />
+  <link rel="stylesheet" href="../shared/css/shared_background.css" />
+  <link rel="stylesheet" href="../shared/css/shared_pwd_hide_eye.css" />
+  <link rel="stylesheet" href="../shared/css/shared_form.css" />
   <title>Register</title>
 </head>
 
 <body>
-  <div class="register_image"></div>
+  <div class="background_image"></div>
   <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
     <div class="toast-container">
       <div class="toast rounded" role="alert" aria-live="assertive" aria-atomic="true" id="email_duplicate_toast">
@@ -46,7 +49,7 @@
     </div>
   </div>
 
-  <main class="register_form">
+  <main class="form">
     <form onsubmit="return validateInput();" method="post">
       <h1 class="m2">Register</h1>
       <p class="m-2">To get started, we need some information about you.</p>
