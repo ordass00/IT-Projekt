@@ -7,6 +7,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
     <link rel="stylesheet" href="reset_password.css" />
+    <link rel="stylesheet" href="../shared/css/shared_background.css">
+    <link rel="stylesheet" href="../shared/css/shared_toasts.css">
+    <link rel="stylesheet" href="../shared/css/shared_form.css">
 
     <title>Reset password</title>
 
@@ -53,7 +56,7 @@
             </div>
         </div>
     </div>
-    <main class="reset_password_form">
+    <main class="form">
         <form onsubmit="return set_new_password();">
             <h1 class="h3 mb-3 fw-normal">Set a new password.</h1>
             <div class="reset_password_content">

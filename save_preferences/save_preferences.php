@@ -7,6 +7,10 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="save_preferences.css">
+  <link rel="stylesheet" href="../shared/css/shared_nav.css">
+  <link rel="stylesheet" href="../shared/css/shared_background.css">
+  <link rel="stylesheet" href="../shared/css/shared_form.css">
+  <link rel="stylesheet" href="../shared/css/shared_toasts.css">
 
   <title>Save preferences</title>
 </head>
@@ -22,7 +26,7 @@
           </script>";
   }
   ?>
-  <div class="login-image"></div>
+  <div class="background_image"></div>
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +60,7 @@
       </div>
     </div>
   </div>
-  <main class="save-preferences-form">
+  <main class="form">
     <form action="save_preferences_functionality.php" method="POST" name="preferences_form">
       <h3 class="h3 mb-3 fw-normal text-center">Select your preferences</h3>
       <div class="row mb-3">
