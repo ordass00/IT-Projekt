@@ -13,7 +13,7 @@ function try_to_login()
     $conn = connect_local();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $sql = "SELECT id, username, email, password FROM user WHERE email= ?";
+        $sql = "SELECT id, firstname, lastname, username, email, dateofbirth, password FROM user WHERE email= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(1, $_POST["email"]);
         if ($stmt->execute()) {
@@ -25,7 +25,11 @@ function try_to_login()
                     if (password_verify($password, $hashed_password)) {
                         $_SESSION["loggedin"] = true;
                         $_SESSION["userid"] = $user_id;
+                        $_SESSION["firstname"] = $row["firstname"];
+                        $_SESSION["lastname"] = $row["lastname"];
                         $_SESSION["username"] = $row["username"];
+                        $_SESSION["email"] = $row["email"];
+                        $_SESSION["dateofbirth"] = $row["dateofbirth"];
                         $preferences = get_preferences_by_user_id($conn, $user_id);
                         if ($preferences == false) {
                             header("location: ../save_preferences/save_preferences.php");
