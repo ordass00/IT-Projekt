@@ -1,0 +1,42 @@
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+
+.meal-plan-overview-image {
+    background-image: url("../shared/img/background.jpg");
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-design {
+    background-color: rgba(152,149,158,0.25);
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80em;
+    padding: 15px;
+    margin: auto;
+    text-align: center;
+}
+
+.login-form .checkbox, label, a {
+    font-weight: 400;
+}
+
+.login-form{
+    z-index: 2;
+}
+
+h6 {
+    font-weight: bold;
+}

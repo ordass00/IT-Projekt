@@ -37,7 +37,8 @@
         if ($success === 0) {
             echo "<script>showToastErrorMessage('error_toast', 'error_text', ' Not able to set user ingredients.');</script>";
         } else {
-            //TODO Umleiten
+            //TODO redirect to user overview. At the moment it will redirect to meal_plan_overview
+            header("location: ../meal_plan_overview/meal_plan_overview.php");
         }
     }
     ?>
