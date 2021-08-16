@@ -7,6 +7,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
     <link rel="stylesheet" href="reset_password.css" />
+    <link rel="stylesheet" href="../shared/css/shared_background.css">
+    <link rel="stylesheet" href="../shared/css/shared_toasts.css">
+    <link rel="stylesheet" href="../shared/css/shared_form.css">
 
     <title>Reset password</title>
 
@@ -24,13 +27,15 @@
 </head>
 
 <body>
-    <?php 
+    <?php
+    error_reporting(0);
+    ini_set('display_errors', 0); 
     $token = $_GET["token"];
     $id = $_GET["id"];
     echo "<span hidden id='u_id'>".$id."</span>";
     echo "<span hidden id='token'>".$token."</span>";
     ?>
-    <div class="background_image"></div>
+    <div class="background_image_blur"></div>
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
         <div class="toast-container">
             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="error_toast">
@@ -51,7 +56,7 @@
             </div>
         </div>
     </div>
-    <main class="reset_password_form">
+    <main class="form">
         <form onsubmit="return set_new_password();">
             <h1 class="h3 mb-3 fw-normal">Set a new password.</h1>
             <div class="reset_password_content">
