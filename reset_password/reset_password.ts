@@ -33,6 +33,7 @@ function update_instructions(): void {
     let reset_password_elem = document.querySelector(".reset_password_content");
     if (reset_password_elem != null) {
         reset_password_elem.innerHTML = "<p>Instructions on how to reset your password were sent to the specified address.</p>";
+        reset_password_elem.innerHTML += "<p><b>Please make sure to check your spam folder.</b></p><br>";
         reset_password_elem.innerHTML += "<p>You can leave this page now.</p>";
     }
     else {

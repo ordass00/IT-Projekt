@@ -8,12 +8,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
   <link rel="stylesheet" href="register_account_details.css" />
-
+  <link rel="stylesheet" href="../shared/css/shared_toasts.css" />
+  <link rel="stylesheet" href="../shared/css/shared_background.css" />
+  <link rel="stylesheet" href="../shared/css/shared_pwd_hide_eye.css" />
+  <link rel="stylesheet" href="../shared/css/shared_form.css" />
   <title>Register</title>
 </head>
 
 <body>
-  <div class="register_image"></div>
+  <div class="background_image_blur"></div>
   <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
     <div class="toast-container">
       <div class="toast rounded" role="alert" aria-live="assertive" aria-atomic="true" id="email_duplicate_toast">
@@ -45,23 +48,29 @@
       </div>
     </div>
   </div>
-  <main class="register_form">
+
+  <main class="form">
     <form onsubmit="return validateInput();" method="post">
-      <h1 class="h3 mb-3 fw-normal">Personal Data</h1>
+      <h1 class="m2">Register</h1>
       <p class="m-2">To get started, we need some information about you.</p>
       <input type="text" class="form-control mb-3" placeholder="Username" id="username_input" required minlength="3"
         maxlength="45" autocomplete="username" />
       <input type="email" class="form-control mb-3" placeholder="name@example.com" id="email_input" required
         autocomplete="email" maxlength="45" />
       <input type="password" class="form-control" placeholder="Password" id="password_input" autocomplete="new-password"
-        required minlength="8"/>
+        required minlength="8" />
       <span class="show-hide-pwd-eye" onclick="showHidePassword()">
         <img src="../shared/img/eye.svg" alt="Eye to show/hide password" />
       </span>
-      <div class="d-flex justify-content-center" style="clear: right">
-        <button class="btn btn-lg btn-primary m-2" type="submit">
-          Sign Up
-        </button>
+      <div class="row m-2">
+        <div class="col-6 d-flex">
+          <a href="../register_personal_details/register_personal_details.html"><button type="button"
+              class="btn btn-outline-primary btn-lg m-3">Back</button></a>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <button class="btn btn-primary btn-lg m-3" type="submit">Sign
+            up</button>
+        </div>
       </div>
 
       <p class="m-3" style="color: grey">&copy; 2021 individumeal.com</p>
@@ -71,12 +80,12 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script>
-    <script type="module">
-      import {showHidePassword} from "../shared/js/shared_functions.js";
-      import {validateInput} from "./validate_input.js";
-      window.showHidePassword = showHidePassword;
-      window.validateInput = validateInput;
-    </script>
+  <script type="module">
+    import { showHidePassword } from "../shared/js/shared_functions.js";
+    import { validateInput } from "./validate_input.js";
+    window.showHidePassword = showHidePassword;
+    window.validateInput = validateInput;
+  </script>
 </body>
 
 </html>

@@ -8,8 +8,8 @@ export function showHidePassword() {
     }
 }
 export function showToastErrorMessage(id, textFieldId, err_message) {
-    if (err_message == "") {
-        err_message = "An uknown error occured";
+    if (err_message == "" || err_message == null) {
+        err_message = "An unknown error occured.";
     }
     let toastHTMLElement = document.getElementById(id);
     document.getElementById(textFieldId).textContent = err_message;
