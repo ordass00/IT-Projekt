@@ -5,8 +5,7 @@ include_once "input.php";
 function connect_server()
 {
   try {
-    $conn = new PDO(DB_DSN_S, DB_USER_S, DB_PASS_S);
-    return $conn;
+    return new PDO(DB_DSN_S, DB_USER_S, DB_PASS_S);
   } catch (PDOException $e) {
     echo $e->getMessage();
   }
@@ -15,8 +14,7 @@ function connect_server()
 function connect_local()
 {
   try {
-    $conn = new PDO(DB_DSN_L, DB_USER_L, DB_PASS_L);
-    return $conn;
+    return new PDO(DB_DSN_L, DB_USER_L, DB_PASS_L);
   } catch (PDOException $e) {
     echo $e->getMessage();
   }
@@ -33,8 +31,7 @@ function get_user_by_mail($conn, $email)
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $email);
   $stmt->execute();
-  $result = $stmt->fetch(PDO::FETCH_ASSOC);
-  return $result;
+  return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function get_user_by_username($conn, $username)
@@ -48,8 +45,7 @@ function get_user_by_username($conn, $username)
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $username);
   $stmt->execute();
-  $result = $stmt->fetch(PDO::FETCH_ASSOC);
-  return $result;
+  return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $username, $password, $email)
@@ -89,6 +85,9 @@ function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $username
 
 function get_preferences_by_user_id($conn, $user_id)
 {
+    if ($conn == null || $user_id == null) {
+        return null;
+    }
   $sql = "SELECT * from preferences WHERE user_id= ?";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $user_id);
@@ -109,12 +108,10 @@ function insert_preferences($conn, $intolerances, $diet_type, $calories, $user_i
 
 function set_ingredients($conn, $ingredients, $user_id){
   $ingredients = validate_input($ingredients);
-  $ingredients = json_encode($ingredients);
   $ingredients = str_replace("&quot;", '"', $ingredients);
   $sql = "insert into Ingredients(IngredientsAtHome, User_ID) values (:ingredients, :user_id);";
   $stmt = $conn->prepare($sql);
-  $result = $stmt->execute(array(":ingredients" => $ingredients, ":user_id" => $user_id));
-  return $result;
+  return $stmt->execute(array(":ingredients" => $ingredients, ":user_id" => $user_id));
 }
 
 function set_password_reset($conn, $user_id, $password_reset){
@@ -122,8 +119,7 @@ function set_password_reset($conn, $user_id, $password_reset){
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $password_reset);
   $stmt->bindParam(2, $user_id);
-  $result = $stmt->execute();
-  return $result;
+  return $stmt->execute();
 }
 
 function get_password_reset($conn, $user_id){
@@ -131,8 +127,7 @@ function get_password_reset($conn, $user_id){
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $user_id);
   $stmt->execute();
-  $result = $stmt->fetch(PDO::FETCH_ASSOC);
-  return $result;
+  return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function reset_password($conn, $user_id, $new_password){
@@ -140,14 +135,12 @@ function reset_password($conn, $user_id, $new_password){
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $new_password);
   $stmt->bindParam(2, $user_id);
-  $result = $stmt->execute();
-  return $result;
+  return $stmt->execute();
 }
 
 function clear_password_reset($conn, $user_id){
   $sql = "update User set PasswordReset = null where ID = ?;";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $user_id);
-  $result = $stmt->execute();
-  return $result;
+  return $stmt->execute();
 }
