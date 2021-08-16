@@ -42,7 +42,7 @@ try_to_login();
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="../index/index.html">Home</a>
+                        <a class="nav-link active" href="../index/index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../imprint/imprint.html">Support & Imprint</a>
@@ -55,7 +55,7 @@ try_to_login();
         </div>
     </nav>
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
-        <div class="toast-container d-flex justify-content-center align-items-center m-2 toasts">
+        <div class="toast-container">
             <div class="toast rounded" role="alert" aria-live="assertive" aria-atomic="true" id="successfully_registered_toast">
                 <div class="d-flex alert-success rounded">
                     <div class="toast-body">
@@ -64,7 +64,6 @@ try_to_login();
                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
-
             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="error_toast">
                 <div class="d-flex alert-danger rounded">
                     <div class="toast-body">
@@ -73,7 +72,6 @@ try_to_login();
                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
-
             <div class="toast rounded" role="alert" aria-live="assertive" aria-atomic="true" id="successfully_reset_password_toast">
                 <div class="d-flex alert-success rounded">
                     <div class="toast-body">
@@ -84,13 +82,12 @@ try_to_login();
             </div>
         </div>
     </div>
-
     <main class="form">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <h1 class="h3 mb-3 fw-normal">Login</h1>
             <input type="email" class="form-control mb-3" name="email" placeholder="name@example.com" autocomplete="email" required>
             <input type="password" class="form-control" name="password" placeholder="Password" id="password_input" autocomplete="current-password" required>
-            <span class="show-hide-pwd-eye" onclick="showHidePassword();">
+            <span class="show-hide-pwd-eye" onclick="showHidePassword('password_input');">
                 <img src="../shared/img/eye.svg" alt="Eye to show/hide password">
             </span>
             <div class="checkbox mb-3 align-center">
