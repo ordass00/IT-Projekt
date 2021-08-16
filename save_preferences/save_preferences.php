@@ -26,7 +26,7 @@
           </script>";
   }
   ?>
-  <div class="background_image"></div>
+  <div class="background_image_blur"></div>
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

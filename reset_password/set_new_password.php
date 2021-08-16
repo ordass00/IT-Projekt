@@ -35,7 +35,7 @@
     echo "<span hidden id='u_id'>".$id."</span>";
     echo "<span hidden id='token'>".$token."</span>";
     ?>
-    <div class="background_image"></div>
+    <div class="background_image_blur"></div>
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
         <div class="toast-container">
             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="error_toast">
