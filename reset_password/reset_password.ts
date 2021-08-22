@@ -41,16 +41,16 @@ function update_instructions(): void {
     }
 
 }
-export function set_new_password():boolean{
+export function set_new_password(): boolean {
     let id = document.getElementById("u_id")?.innerHTML;
     let token = document.getElementById("token")?.innerHTML;
-    if(id == "" || token == ""){
+    if (id == "" || token == "") {
         showToastErrorMessage("error_toast", "error_text", "The process to reset the password was not started yet.");
         return false;
     }
     let password = (document.getElementById("new_password") as HTMLInputElement).value;
     let password_check = (document.getElementById("new_password_check") as HTMLInputElement).value;
-    if(password != password_check){
+    if (password != password_check) {
         showToastErrorMessage("error_toast", "error_text", "The passwords did not match.");
         return false;
     }
