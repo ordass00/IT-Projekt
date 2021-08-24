@@ -70,12 +70,12 @@ function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $username
   }
 
   //Preventing Sql-Injection with prepared statements
-  $sql = "insert into User (FirstName, LastName, Username, Gender, Password, EMail, DateOfBirth)
-  values (:firstName, :lastName, :username, :gender, :password, :EMail, :dateOfBirth);";
+  $sql = "insert into User (FirstName, LastName, Username, Gender, Password, EMail, DateOfBirth, BreakfastNr, LunchNr, DinnerNr)
+  values (:firstName, :lastName, :username, :gender, :password, :EMail, :dateOfBirth, :breakfast_nr, :lunch_nr, :dinner_nr);";
   $stmt = $conn->prepare($sql);
   $result = $stmt->execute(array(
     ":firstName" => $firstName, ":lastName" => $lastName, ":username" => $username, ":gender" => $gender,
-    ":password" => $password, ":EMail" => $email, ":dateOfBirth" => $dateOfBirth
+    ":password" => $password, ":EMail" => $email, ":dateOfBirth" => $dateOfBirth, ":breakfast_nr" => 0, ":lunch_nr" => 0, ":dinner_nr" => 0
   ));
   if (!$result) {
     return false;

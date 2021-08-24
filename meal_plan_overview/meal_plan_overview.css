@@ -3,18 +3,18 @@ body, html {
     overflow: hidden;
 }
 
-.meal-plan-overview-image {
-    background-image: url("../shared/img/background.jpg");
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.card-img-top {
+    width: 100%;
+    height: 25em;
+    object-fit: cover;
+}
+
+.btn {
+    width: 20em;
+    height: 2.5em;
 }
 
 .card-design {
-    background-color: rgba(152,149,158,0.25);
     color: black;
     font-weight: bold;
     border-radius: 5px;
@@ -29,14 +29,24 @@ body, html {
     text-align: center;
 }
 
-.login-form .checkbox, label, a {
-    font-weight: 400;
+.card, .card-header {
+    background-color: rgba(245, 245, 245, 0);
 }
 
-.login-form{
-    z-index: 2;
+#breakfast_image_id, #lunch_image_id, #dinner_image_id {
+    border-radius: 1.5em
 }
 
-h6 {
-    font-weight: bold;
+#breakfast_title_card_id, #lunch_title_card_id, #dinner_title_card_id {
+    height: 4em;
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 2.5em;
+}
+
+h1 {
+    font-size: 3em;
+    color: black;
 }
