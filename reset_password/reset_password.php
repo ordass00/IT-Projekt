@@ -19,7 +19,6 @@ if (isset($request) && !empty($request)) {
         $id = $email["ID"];
         $email = $email["EMail"];
 
-        #only one email every 10 minutes
         $older_password_reset = get_password_reset($conn, $id);
         $password_reset = json_decode($older_password_reset["PasswordReset"]);
         if (isset($password_reset->last_reset)) {
