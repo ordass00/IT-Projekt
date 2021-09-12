@@ -9,7 +9,7 @@ body, html {
     object-fit: cover;
 }
 
-.btn {
+#anchor .btn {
     width: 20em;
     height: 2.5em;
 }

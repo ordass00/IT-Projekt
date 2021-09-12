@@ -116,18 +116,6 @@ function api_call($url): array|bool|string
     return $errorText ? ["errorText" => "cURL Error #:" . $errorText] : $response;
 }
 
-function get_ingredients_by_user_id($conn, $user_id)
-{
-    if ($conn == null || $user_id == null) {
-        return null;
-    }
-    $sql = "SELECT IngredientsAtHome from ingredients WHERE user_id= ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(1, $user_id);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
 function get_taste_and_nutrient_visualization($id)
 {
     return api_call("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" . $id . "/nutritionWidget?defaultCss=true");

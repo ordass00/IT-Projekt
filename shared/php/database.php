@@ -108,6 +108,18 @@ function get_preferences_by_user_id($conn, $user_id)
   }
 }
 
+function get_ingredients_by_user_id($conn, $user_id)
+{
+    if ($conn == null || $user_id == null) {
+        return null;
+    }
+    $sql = "SELECT IngredientsAtHome from ingredients WHERE user_id= ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $user_id);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function insert_preferences($conn, $intolerances, $diet_type, $calories, $user_id){
   $sql = "INSERT INTO preferences(intolerances, DietType, Calories, User_ID) VALUES (:intolerances, :diettype, :calories, :userid)";
   $statement = $conn->prepare($sql);

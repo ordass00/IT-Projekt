@@ -13,7 +13,7 @@
     ?>
     <script>window.localStorage.setItem('loggedOut', 'true');</script>
     <?php
-    header('Location: ../index/index.php');
+    header('Location: ../../index/index.html');
     exit;
     ?>
 </body>
