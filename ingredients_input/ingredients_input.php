@@ -16,32 +16,17 @@
 
     <script type="module">
         import {
-            validateInput
+            validateAndSaveIngredients
         } from "./validate_input.js";
         import {
             showToastErrorMessage
         } from "../shared/js/shared_functions.js";
-        window.validateInput = validateInput;
+        window.validateAndSaveIngredients = validateAndSaveIngredients;
         window.showToastErrorMessage = showToastErrorMessage;
     </script>
 </head>
 
 <body>
-    <?php
-    include_once "../shared/php/database.php";
-    error_reporting(0);
-    session_start();
-    //Empty check für Session
-    if (isset($_POST["ingredients"]) && !empty($_POST["ingredients"])) {
-        $success = set_ingredients(connect_local(), $_POST["ingredients"], $_SESSION["userid"]);
-        if ($success === 0) {
-            echo "<script>showToastErrorMessage('error_toast', 'error_text', ' Not able to set user ingredients.');</script>";
-        } else {
-            //TODO redirect to user overview. At the moment it will redirect to meal_plan_overview
-            header("location: ../meal_plan_overview/meal_plan_overview.php");
-        }
-    }
-    ?>
     <div class="background_image_blur"></div>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
         <div class="container-fluid">
@@ -85,14 +70,13 @@
         </div>
     </div>
     <main class="form">
-        <form onsubmit="return validateInput();" method="post" id="ingredients_form" action="ingredients_input.php">
+        <form  method="post" id="ingredients_form">
             <h1 class="m-2">Ingredients</h1>
             <p class="m-2">Tell us, which ingredients you have at home.</p>
             <textarea form="ingredients_form" required name="ingredients" id="ingredients_input" class="form-group rounded" style="resize: none;" cols="30" rows="10" placeholder="ham, cheese, eggs"></textarea>
             <div class="d-flex justify-content-center" style="clear: right">
-                <button class="btn btn-lg btn-primary m-2" type="submit">
-                    Submit
-                </button>
+                <input class="btn btn-lg btn-primary m-2" type="button" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid']; ?>)"
+                    value="Submit"/>
             </div>
 
             <p class="m-3" style="color: grey">&copy; 2021 individumeal.com</p>
