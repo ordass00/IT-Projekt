@@ -1,5 +1,5 @@
-export function showHidePassword(): void {
-    let password = document.getElementById("password_input") as HTMLInputElement;
+export function showHidePassword(inputFieldId:string): void {
+    let password = document.getElementById(inputFieldId) as HTMLInputElement;
     if (password.type === "password") {
         password.type = "text";
     } else {
