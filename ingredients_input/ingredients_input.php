@@ -78,8 +78,7 @@
             <p class="m-2">Tell us, which ingredients you have at home.</p>
             <textarea form="ingredients_form" required name="ingredients" id="ingredients_input" class="form-group rounded" style="resize: none;" cols="30" rows="10" placeholder="ham, cheese, eggs"></textarea>
             <div class="d-flex justify-content-center" style="clear: right">
-                <input class="btn btn-lg btn-primary m-2" type="button" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid']; ?>, './validate_input.php', '../meal_plan_overview/meal_plan_overview.php')"
-                    value="Submit"/>
+                <input class="btn btn-lg btn-primary m-2" type="button" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid']; ?>, './validate_input.php', '../meal_plan_overview/meal_plan_overview.php', 'error_toast', 'error_text')" value="Submit"/>
             </div>
 
             <p class="m-3" style="color: grey">&copy; 2021 individumeal.com</p>

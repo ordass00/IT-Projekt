@@ -22,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("location: save_preferences.php?duplicate=true");
     } else {
         insert_preferences($conn, $intolerances, $diet_type, $calories, $user_id);
-        //To Do: needs to point to the main page after saving the preferences
         header("location: ../ingredients_input/ingredients_input.php");
     }
 }
