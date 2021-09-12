@@ -59,13 +59,13 @@
         autocomplete="email" maxlength="45" />
       <input type="password" class="form-control" placeholder="Password" id="password_input" autocomplete="new-password"
         required minlength="8" />
-      <span class="show-hide-pwd-eye" onclick="showHidePassword()">
+      <span class="show-hide-pwd-eye" onclick="showHidePassword('password_input')">
         <img src="../shared/img/eye.svg" alt="Eye to show/hide password" />
       </span>
       <div class="row m-2">
         <div class="col-6 d-flex">
           <a href="../register_personal_details/register_personal_details.html"><button type="button"
-              class="btn btn-outline-primary btn-lg m-3" onclick="localStorage.clear();">Back</button></a>
+              class="btn btn-primary btn-lg m-3" onclick="localStorage.clear();">Back</button></a>
         </div>
         <div class="col-6 d-flex justify-content-end">
           <button class="btn btn-primary btn-lg m-3" type="submit">Sign

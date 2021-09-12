@@ -48,6 +48,18 @@ function get_user_by_username($conn, $username)
   return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function get_user_by_user_id($conn, $user_id)
+{
+    if ($conn == null || $user_id == null) {
+        return null;
+    }
+    $sql = "select * from User where ID = ?;";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $user_id);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $username, $password, $email)
 {
   if ($firstName == null || $lastName == null || $dateOfBirth == null || $gender == null || $password == null || $email == null || $username == null) {
@@ -145,4 +157,42 @@ function clear_password_reset($conn, $user_id){
   $stmt->bindParam(1, $clear_reset);
   $stmt->bindParam(2, $user_id);
   return $stmt->execute();
+}
+
+function change_username($conn, $user_id, $new_username)
+{
+  if ($conn == null || $user_id == null || $new_username == null) {
+    return null;
+  }
+  $sql = "UPDATE user SET Username=? WHERE ID=?;";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(1, $new_username);
+  $stmt->bindParam(2, $user_id);
+  return  $stmt->execute();
+}
+
+function change_user_information($conn, $user_id, $new_firstname, $new_lastname, $new_username, $new_email, $new_date_of_birth){
+    if ($conn == null || $user_id == null || $new_firstname == null || $new_lastname == null || $new_username == null || $new_email == null || $new_date_of_birth == null){
+        return null;
+    }
+    $sql = "UPDATE user SET FirstName = :FirstName, LastName = :LastName, Username = :Username, EMail = :EMail, DateOfBirth = :DateOfBirth  WHERE ID = :ID;";
+    $stmt = $conn->prepare($sql);
+    return $stmt->execute(["FirstName" => $new_firstname, "LastName" => $new_lastname, "Username" => $new_username, "EMail" => $new_email, "DateOfBirth" => $new_date_of_birth, "ID" => $user_id]);
+}
+
+function change_preferences($conn, $user_id, $diet_type, $intolerances, $calories){
+    if ($conn == null || $user_id == null || $diet_type == null || $intolerances == null || $calories == null){
+        return null;
+    }
+    $sql = "UPDATE preferences SET DietType = :DietType, intolerances = :intolerances, Calories = :Calories WHERE User_ID = :User_ID;";
+    $stmt = $conn->prepare($sql);
+    return $stmt->execute(["DietType" => $diet_type, "intolerances" => $intolerances, "Calories" => $calories, "User_ID" => $user_id]);
+}
+
+function change_ingredients($conn, $ingredients, $user_id){
+    $ingredients = validate_input($ingredients);
+    $ingredients = str_replace("&quot;", '"', $ingredients);
+    $sql = "UPDATE ingredients SET IngredientsAtHome = :IngredientsAtHome WHERE User_ID = :User_ID;";
+    $stmt = $conn->prepare($sql);
+    return $stmt->execute(["IngredientsAtHome" => $ingredients, "User_ID" => $user_id]);
 }
