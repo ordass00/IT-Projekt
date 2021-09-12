@@ -13,19 +13,29 @@ if (isset($request) && !empty($request)) {
     case "reset_password_request":
       $email = get_user_by_mail($conn, $reqObj->email);
       if (!$email) {
-        echo json_encode(["error" => true, "errorText" => "E-Mail not found"]);
+        echo json_encode(["error" => true, "errorText" => "E-Mail not found."]);
+        exit;
       } else {
         $id = $email["ID"];
         $email = $email["EMail"];
+
+        $older_password_reset = get_password_reset($conn, $id);
+        $password_reset = json_decode($older_password_reset["PasswordReset"]);
+        if (isset($password_reset->last_reset)) {
+          if (( $password_reset->last_reset + (10 * 60)) > time()) {
+            echo json_encode(["error" => true, "errorText" => "A request to reset your password has already been made. Please try again in about 10 minutes."]);
+            exit;
+          }
+        }
 
         $random_token = random_bytes(64);
         $random_token = password_hash($random_token, PASSWORD_DEFAULT);
         $expire_time = time() + (15 * 60);
         $password_reset_db = json_encode(["random_token" => $random_token, "expire_time" => $expire_time]);
-        $conn = connect_local();
         $success = set_password_reset($conn, $id, $password_reset_db);
         if (!$success) {
-          echo json_encode(["error" => true, "errorText" => "Failed to set reset-token"]);
+          echo json_encode(["error" => true, "errorText" => "Failed to set reset-token."]);
+          exit;
         }
 
         $subject = "Reset password | individumeal.com";
@@ -65,36 +75,36 @@ if (isset($request) && !empty($request)) {
         $success = mail($email, $subject, $message, $headers);
         if ($success == $email) {
           echo json_encode(["error" => false, "errorText" => ""]);
+          exit;
         } else {
-          echo json_encode(["error" => true, "errorText" => "Failed to send email"]);
+          echo json_encode(["error" => true, "errorText" => "Failed to send email."]);
+          exit;
         }
       }
-      break;
     case "reset_password":
       $password = $reqObj->password;
       $password = password_hash($password, PASSWORD_DEFAULT);
-      $conn = connect_local();
 
       $password_reset_db = get_password_reset($conn, $reqObj->id);
       $password_reset_dbObj = json_decode($password_reset_db["PasswordReset"]);
       if ($password_reset_dbObj == null) {
-        echo json_encode(["error" => true, "errorText" => "Unable to load reset token/expiry time"]);
+        echo json_encode(["error" => true, "errorText" => "Unable to load reset token/expiry time."]);
         exit;
       }
       $token_db = $password_reset_dbObj->random_token;
       $timestamp_db = $password_reset_dbObj->expire_time;
 
       if ($token_db != $reqObj->token) {
-        echo json_encode(["error" => true, "errorText" => "Reset token did not match"]);
+        echo json_encode(["error" => true, "errorText" => "Reset token did not match."]);
         exit;
-      } else if ($timestamp_db < time()) {
-        echo json_encode(["error" => true, "errorText" => "The reset token was expired"]);
+      } else if ($timestamp_db > time()) {
+        echo json_encode(["error" => true, "errorText" => "The reset token was expired."]);
         exit;
       } else {
         $success = reset_password($conn, $reqObj->id, $password);
         clear_password_reset($conn, $reqObj->id);
         if (!$success) {
-          echo json_encode(["error" => true, "errorText" => "Failed to reset password"]);
+          echo json_encode(["error" => true, "errorText" => "Failed to reset password."]);
         }
         echo json_encode(["error" => false, "errorText" => ""]);
       }

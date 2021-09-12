@@ -2,7 +2,8 @@
 require_once("login_functionality.php");
 try_to_login();
 ?>
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -90,9 +91,6 @@ try_to_login();
             <span class="show-hide-pwd-eye" onclick="showHidePassword('password_input');">
                 <img src="../shared/img/eye.svg" alt="Eye to show/hide password">
             </span>
-            <div class="checkbox mb-3 align-center">
-                <input type="checkbox"> Remember me
-            </div>
             <div class="mb-3">
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
             </div>

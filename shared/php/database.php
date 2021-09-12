@@ -82,12 +82,12 @@ function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $username
   }
 
   //Preventing Sql-Injection with prepared statements
-  $sql = "insert into User (FirstName, LastName, Username, Gender, Password, EMail, DateOfBirth)
-  values (:firstName, :lastName, :username, :gender, :password, :EMail, :dateOfBirth);";
+  $sql = "insert into User (FirstName, LastName, Username, Gender, Password, EMail, DateOfBirth, BreakfastNr, LunchNr, DinnerNr)
+  values (:firstName, :lastName, :username, :gender, :password, :EMail, :dateOfBirth, :breakfast_nr, :lunch_nr, :dinner_nr);";
   $stmt = $conn->prepare($sql);
   $result = $stmt->execute(array(
     ":firstName" => $firstName, ":lastName" => $lastName, ":username" => $username, ":gender" => $gender,
-    ":password" => $password, ":EMail" => $email, ":dateOfBirth" => $dateOfBirth
+    ":password" => $password, ":EMail" => $email, ":dateOfBirth" => $dateOfBirth, ":breakfast_nr" => 0, ":lunch_nr" => 0, ":dinner_nr" => 0
   ));
   if (!$result) {
     return false;
@@ -151,9 +151,11 @@ function reset_password($conn, $user_id, $new_password){
 }
 
 function clear_password_reset($conn, $user_id){
-  $sql = "update User set PasswordReset = null where ID = ?;";
+  $clear_reset = json_encode(["random_token" => null, "expire_time" => null, "last_reset" => time()]);
+  $sql = "update User set PasswordReset = ? where ID = ?;";
   $stmt = $conn->prepare($sql);
-  $stmt->bindParam(1, $user_id);
+  $stmt->bindParam(1, $clear_reset);
+  $stmt->bindParam(2, $user_id);
   return $stmt->execute();
 }
 

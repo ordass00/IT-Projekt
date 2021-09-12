@@ -12,13 +12,19 @@ session_start();
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
   <link rel="stylesheet" href="index.css" />
   <link rel="stylesheet" href="../shared/css/shared_nav.css" />
+  <link rel="stylesheet" href="../shared/css/shared_toasts.css" />
 
-  <script>localStorage.clear();</script>
+  <script type="module">
+    import {
+      successfullyLoggedOutToast
+    } from "./index.js";
+    window.successfullyLoggedOutToast = successfullyLoggedOutToast;
+  </script>
 
   <title>Welcome to IndividuMeal</title>
 </head>
 
-<body>
+<body onload="successfullyLoggedOutToast();">
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -46,6 +52,21 @@ session_start();
       </div>
     </div>
   </nav>
+
+  <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
+    <div class="toast-container d-flex justify-content-center align-items-center m-2 toasts">
+      <div class="toast rounded" role="alert" aria-live="assertive" aria-atomic="true"
+        id="successfully_logged_out_toast">
+        <div class="d-flex alert-success rounded">
+          <div class="toast-body">
+            <b>Success!</b> You have been successfully logged out.
+          </div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="d-flex align-items-center justify-content-center">
     <div>
       <div class="d-flex align-items-center justify-content-center">
