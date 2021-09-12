@@ -15,6 +15,7 @@ session_start();
     <link rel="stylesheet" href="../shared/css/shared_overlay.css"/>
     <link rel="stylesheet" href="../shared/css/shared_background2.css"/>
     <link rel="stylesheet" href="meal_plan_overview.css">
+    <link rel="stylesheet" href="../shared/css/shared_nav.css" />
     <script type="module">
         import {
             getRecipesByUserId,
@@ -33,6 +34,27 @@ session_start();
 </head>
 <body>
 <div class="background_image_normal"></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="./meal_plan_overview.php">Meal Plan Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../change_settings/change_settings.php">Settings</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 mr-sm-2" action="../shared/logout.php">
+                <button id="logout_button" class="btn btn-primary" name="logout" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
 <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center m-2 toasts">
     <div class="toast-container">
         <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true"

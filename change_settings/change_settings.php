@@ -18,14 +18,14 @@ session_start();
     <script type="module">
         import {changeAccountSettings, changePassword, changePreferences, changeIngredients, pwdValidation} from "./change_settings.js";
         import {showHidePassword} from "../shared/js/shared_functions.js";
-        import {validateInput} from "../ingredients_input/validate_input.js";
+        import {validateAndSaveIngredients} from "../ingredients_input/validate_input.js";
         window.changeAccountSettings = changeAccountSettings;
         window.changePassword = changePassword;
         window.changePreferences = changePreferences;
         window.changeIngredients = changeIngredients;
         window.pwdValidation = pwdValidation;
         window.showHidePassword = showHidePassword;
-        window.validateInput = validateInput;
+        window.validateAndSaveIngredients = validateAndSaveIngredients;
     </script>
 
     <title>Account Settings</title>
@@ -40,16 +40,13 @@ session_start();
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="../index/index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="../meal_plan_overview/meal_plan_overview.php">Meal Plan Overview</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../imprint/imprint.html">Support & Imprint</a>
+                        <a class="nav-link active" href="./change_settings.php">Settings</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0 mr-sm-2" action="../shared/logout.php">
+                <form class="form-inline my-2 my-lg-0 mr-sm-2" action="../shared/php/logout.php">
                     <button class="btn btn-primary" name="logout" type="submit">Logout</button>
                 </form>
             </div>
@@ -419,7 +416,7 @@ session_start();
                                 <div class="column">
                                     <div class="card">
                                         <div class="card-body">
-                                            <form method="post" onsubmit="return validateInput();" id="ingredients_form">
+                                            <form method="post" id="ingredients_form">
                                                 <div class="row mb-3">
                                                     <div class="col-sm-5">
                                                         <p class="m-2">Ingredients you have at home.</p>
@@ -429,7 +426,7 @@ session_start();
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-primary btn-cursor" onclick="changeIngredients()">Confirm</button>
+                                                    <button type="button" class="btn btn-primary btn-cursor" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid'];?>, '../ingredients_input/validate_input.php', './change_settings.php')">Confirm</button>
                                                 </div>
                                             </form>
                                         </div>

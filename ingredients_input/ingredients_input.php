@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,14 +40,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="../index/index.php">Home</a>
+                        <a class="nav-link active" href="../index/index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../imprint/imprint.html">Support & Imprint</a>
                     </li>
                 </ul>
-                <!-- Hier Logout -->
-                <form class="form-inline my-2 my-lg-0 mr-sm-2" action="">
+                <form class="form-inline my-2 my-lg-0 mr-sm-2" action="../shared/php/logout.php">
                     <button class="btn btn-primary" type="submit">Logout</button>
                 </form>
             </div>
@@ -75,7 +78,7 @@
             <p class="m-2">Tell us, which ingredients you have at home.</p>
             <textarea form="ingredients_form" required name="ingredients" id="ingredients_input" class="form-group rounded" style="resize: none;" cols="30" rows="10" placeholder="ham, cheese, eggs"></textarea>
             <div class="d-flex justify-content-center" style="clear: right">
-                <input class="btn btn-lg btn-primary m-2" type="button" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid']; ?>)"
+                <input class="btn btn-lg btn-primary m-2" type="button" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid']; ?>, './validate_input.php', '../meal_plan_overview/meal_plan_overview.php')"
                     value="Submit"/>
             </div>
 
