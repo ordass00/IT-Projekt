@@ -139,8 +139,10 @@ function reset_password($conn, $user_id, $new_password){
 }
 
 function clear_password_reset($conn, $user_id){
-  $sql = "update User set PasswordReset = null where ID = ?;";
+  $clear_reset = json_encode(["random_token" => null, "expire_time" => null, "last_reset" => time()]);
+  $sql = "update User set PasswordReset = ? where ID = ?;";
   $stmt = $conn->prepare($sql);
-  $stmt->bindParam(1, $user_id);
+  $stmt->bindParam(1, $clear_reset);
+  $stmt->bindParam(2, $user_id);
   return $stmt->execute();
 }
