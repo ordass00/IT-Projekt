@@ -1,3 +1,8 @@
+<?php
+session_start();
+unset($_SESSION);
+session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,16 +11,8 @@
 </head>
 
 <body>
-    <?php
-    session_start();
-    unset($_SESSION);
-    session_destroy();
-    ?>
-    <script>window.localStorage.setItem('loggedOut', 'true');</script>
-    <?php
-    header('Location: ../../index/index.html');
-    exit;
-    ?>
+    <script>window.localStorage.setItem('loggedOut', 'true');
+    window.location.href = "../../index/index.html";
+    </script>
 </body>
-
 </html>
