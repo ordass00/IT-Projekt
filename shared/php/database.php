@@ -2,19 +2,15 @@
 include_once "config.php";
 include_once "input.php";
 
-function connect_server()
+function connect_local_or_server()
 {
   try {
-    return new PDO(DB_DSN_S, DB_USER_S, DB_PASS_S);
-  } catch (PDOException $e) {
-    echo $e->getMessage();
-  }
-}
-
-function connect_local()
-{
-  try {
-    return new PDO(DB_DSN_L, DB_USER_L, DB_PASS_L);
+      if(DB_LOCAL_BOOLEAN){
+          return new PDO(DB_DSN_L, DB_USER_L, DB_PASS_L);
+      }
+      else{
+          return new PDO(DB_DSN_S, DB_USER_S, DB_PASS_S);
+      }
   } catch (PDOException $e) {
     echo $e->getMessage();
   }
@@ -27,7 +23,7 @@ function get_user_by_mail($conn, $email)
   }
   $email = validate_input($email);
   //Preventing Sql-Injection with prepared statements
-  $sql = "select * from User where EMail = ?;";
+  $sql = "select * from user where EMail = ?;";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $email);
   $stmt->execute();
@@ -41,7 +37,7 @@ function get_user_by_username($conn, $username)
   }
   $username = validate_input($username);
   //Preventing Sql-Injection with prepared statements
-  $sql = "select * from User where Username = ?;";
+  $sql = "select * from user where Username = ?;";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $username);
   $stmt->execute();
@@ -74,20 +70,20 @@ function set_user($conn, $firstName, $lastName, $dateOfBirth, $gender, $username
   $username = validate_input($username);
 
   //Checking for duplicates
-  if (get_user_by_mail(connect_local(), $email)) {
+  if (get_user_by_mail(connect_local_or_server(), $email)) {
     return false;
   }
-  if (get_user_by_username(connect_local(), $username)) {
+  if (get_user_by_username(connect_local_or_server(), $username)) {
     return false;
   }
 
   //Preventing Sql-Injection with prepared statements
-  $sql = "insert into User (FirstName, LastName, Username, Gender, Password, EMail, DateOfBirth, BreakfastNr, LunchNr, DinnerNr)
-  values (:firstName, :lastName, :username, :gender, :password, :EMail, :dateOfBirth, :breakfast_nr, :lunch_nr, :dinner_nr);";
+  $sql = "insert into user (FirstName, LastName, Username, Gender, Password, EMail, DateOfBirth, PasswordReset, BreakfastNr, LunchNr, DinnerNr)
+  values (:firstName, :lastName, :username, :gender, :password, :EMail, :dateOfBirth, :PasswordReset, :breakfast_nr, :lunch_nr, :dinner_nr);";
   $stmt = $conn->prepare($sql);
   $result = $stmt->execute(array(
     ":firstName" => $firstName, ":lastName" => $lastName, ":username" => $username, ":gender" => $gender,
-    ":password" => $password, ":EMail" => $email, ":dateOfBirth" => $dateOfBirth, ":breakfast_nr" => 0, ":lunch_nr" => 0, ":dinner_nr" => 0
+    ":password" => $password, ":EMail" => $email, ":dateOfBirth" => $dateOfBirth, ":PasswordReset" => "", ":breakfast_nr" => 0, ":lunch_nr" => 0, ":dinner_nr" => 0
   ));
   if (!$result) {
     return false;
@@ -121,13 +117,13 @@ function insert_preferences($conn, $intolerances, $diet_type, $calories, $user_i
 function set_ingredients($conn, $ingredients, $user_id){
   $ingredients = validate_input($ingredients);
   $ingredients = str_replace("&quot;", '"', $ingredients);
-  $sql = "insert into Ingredients(IngredientsAtHome, User_ID) values (:ingredients, :user_id);";
+  $sql = "insert into ingredients(IngredientsAtHome, User_ID) values (:ingredients, :user_id);";
   $stmt = $conn->prepare($sql);
   return $stmt->execute(array(":ingredients" => $ingredients, ":user_id" => $user_id));
 }
 
 function set_password_reset($conn, $user_id, $password_reset){
-  $sql = "update User set PasswordReset = ? where ID = ?;";
+  $sql = "update user set PasswordReset = ? where ID = ?;";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $password_reset);
   $stmt->bindParam(2, $user_id);
@@ -135,7 +131,7 @@ function set_password_reset($conn, $user_id, $password_reset){
 }
 
 function get_password_reset($conn, $user_id){
-  $sql = "select PasswordReset from User where ID = ?;";
+  $sql = "select PasswordReset from user where ID = ?;";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $user_id);
   $stmt->execute();
@@ -143,7 +139,7 @@ function get_password_reset($conn, $user_id){
 }
 
 function reset_password($conn, $user_id, $new_password){
-  $sql = "update User set Password = ? where ID = ?;";
+  $sql = "update user set Password = ? where ID = ?;";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $new_password);
   $stmt->bindParam(2, $user_id);
@@ -152,7 +148,7 @@ function reset_password($conn, $user_id, $new_password){
 
 function clear_password_reset($conn, $user_id){
   $clear_reset = json_encode(["random_token" => null, "expire_time" => null, "last_reset" => time()]);
-  $sql = "update User set PasswordReset = ? where ID = ?;";
+  $sql = "update user set PasswordReset = ? where ID = ?;";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(1, $clear_reset);
   $stmt->bindParam(2, $user_id);

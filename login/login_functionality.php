@@ -10,7 +10,7 @@ function try_to_login()
         //header("location: welcome.php");
         exit;
     }
-    $conn = connect_local();
+    $conn = connect_local_or_server();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "SELECT id, firstname, lastname, username, email, dateofbirth, password FROM user WHERE email= ?";
@@ -34,7 +34,7 @@ function try_to_login()
                         if ($preferences == false) {
                             header("location: ../save_preferences/save_preferences.php");
                         } else {
-                            $_SESSION["intolerances"] = $preferences["intolerances"];
+                            $_SESSION["intolerances"] = $preferences["Intolerances"];
                             $_SESSION["diettype"] = $preferences["DietType"];
                             $_SESSION["calories"] = $preferences["Calories"];
                             //TODO redirect to user overview. At the moment it will redirect to meal_plan_overview

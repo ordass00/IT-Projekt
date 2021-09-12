@@ -6,7 +6,8 @@ export function validateInput() {
     checkDuplicatesEmail(email);
     checkDuplicatesUsername(username);
     registerUser();
-    setTimeout(() => checkRegistrationSuccess(), 100);
+    //TODO registerUser mit checkRegistrationSuccess asynchron machen
+    setTimeout(() => checkRegistrationSuccess(), 1500);
     return false;
 }
 function checkRegistrationSuccess() {
