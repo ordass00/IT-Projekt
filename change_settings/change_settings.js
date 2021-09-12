@@ -13,7 +13,8 @@ function updateDisplayedAccountSettings(data) {
     let lastname_input = data["lastname"];
     let username_input = data["username"];
     let email_input = data["email"];
-    let dateofbirth_input = data["dateofbirth"](document.getElementById("username")).setAttribute("value", username_input);
+    let dateofbirth_input = data["dateofbirth"];
+    document.getElementById("username").setAttribute("value", username_input);
     document.getElementById("first_name").setAttribute("value", firstname_input);
     document.getElementById("last_name").setAttribute("value", lastname_input);
     document.getElementById("email").setAttribute("value", email_input);
@@ -120,35 +121,6 @@ export function changePreferences() {
         }
     })["catch"](function (error) {
         showToastErrorMessage("error_toast_preferences", "error_text_preferences", error.errorText);
-    });
-}
-export function changeIngredients() {
-    let ingredients = document.getElementById("ingredients_input").value;
-    let userid = document.getElementById("user_id").value;
-    let reqObj = {
-        method: "change_ingredients",
-        ingredients: ingredients,
-        userid: userid,
-    };
-    fetch("change_settings_functionality.php", {
-        method: "POST",
-        body: JSON.stringify(reqObj),
-    })
-        .then(function (response) {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error("Error in response. (change_preferences)");
-    })
-        .then(function (data) {
-        if (data.error) {
-            showToastErrorMessage("error_toast_ingredients", "error_text_ingredients", data.errorText);
-        }
-        else {
-            showToastMessage("successfully_changed_ingredients_toast");
-        }
-    })["catch"](function (error) {
-        showToastErrorMessage("error_toast_ingredients", "error_text_ingredients", error.errorText);
     });
 }
 let pwd_input = document.getElementById("new_password_input");

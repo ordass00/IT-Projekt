@@ -12,7 +12,7 @@ function checkIngredientList(): boolean {
     return true;
 }
 
-export function validateAndSaveIngredients(userId: number, fetch_url: string, redirect_url: string) {
+export function validateAndSaveIngredients(userId: number, fetch_url: string, redirect_url: string, error_toast_id: string, error_toast_text_id: string) {
     let ingredientInput = (document.getElementById("ingredients_input") as HTMLInputElement).value;
     if(!checkIngredientList()){
         return;
@@ -28,12 +28,12 @@ export function validateAndSaveIngredients(userId: number, fetch_url: string, re
     })
         .then(function (data: any) {
             if (data.error) {
-                showToastErrorMessage("error_toast", "error_text", data.errorText);
+                showToastErrorMessage(error_toast_id, error_toast_text_id, data.errorText);
             } else {
                 window.location.href = redirect_url;
             }
         })
         ["catch"](function (error: { error: string; errorText: string }) {
-        showToastErrorMessage("error_toast", "error_text", error.errorText);
+        showToastErrorMessage(error_toast_id, error_toast_text_id, error.errorText);
     });
 }

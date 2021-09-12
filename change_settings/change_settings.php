@@ -16,13 +16,12 @@ session_start();
     <link rel="stylesheet" href="../shared/css/shared_nav.css" />
 
     <script type="module">
-        import {changeAccountSettings, changePassword, changePreferences, changeIngredients, pwdValidation} from "./change_settings.js";
+        import {changeAccountSettings, changePassword, changePreferences, pwdValidation} from "./change_settings.js";
         import {showHidePassword} from "../shared/js/shared_functions.js";
         import {validateAndSaveIngredients} from "../ingredients_input/validate_input.js";
         window.changeAccountSettings = changeAccountSettings;
         window.changePassword = changePassword;
         window.changePreferences = changePreferences;
-        window.changeIngredients = changeIngredients;
         window.pwdValidation = pwdValidation;
         window.showHidePassword = showHidePassword;
         window.validateAndSaveIngredients = validateAndSaveIngredients;
@@ -426,7 +425,7 @@ session_start();
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 d-flex justify-content-center">
-                                                    <button type="button" class="btn btn-primary btn-cursor" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid'];?>, '../ingredients_input/validate_input.php', './change_settings.php')">Confirm</button>
+                                                    <button type="button" class="btn btn-primary btn-cursor" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid'];?>, '../ingredients_input/validate_input.php', './change_settings.php', 'error_toast_ingredients', 'error_text_ingredients')">Confirm</button>
                                                 </div>
                                             </form>
                                         </div>
