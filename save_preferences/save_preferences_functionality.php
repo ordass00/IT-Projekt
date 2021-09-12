@@ -2,7 +2,7 @@
 require_once("../shared/php/database.php");
 
 session_start();
-$conn = connect_local();
+$conn = connect_local_or_server();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION["userid"];
     $diet_type = $_POST["state"];

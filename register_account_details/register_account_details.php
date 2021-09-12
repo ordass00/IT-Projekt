@@ -1,7 +1,7 @@
 <?php
 include "../shared/php/database.php";
 
-$conn = connect_local();
+$conn = connect_local_or_server();
 
 header("Content-Type: application/json");
 
