@@ -71,7 +71,7 @@ function generate_complex_search_url($preferences, $ingredientsAtHome, $type): s
     $url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?diet=";
     $url .= $preferences["DietType"];
     $url .= "&intolerances=";
-    $intolerances = explode(", ", $preferences["intolerances"]);
+    $intolerances = explode(", ", $preferences["Intolerances"]);
     for ($i = 0; $i < count($intolerances) - 1; $i++) {
         $url .= $intolerances[$i] . ",";
     }

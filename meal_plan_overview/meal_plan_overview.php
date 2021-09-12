@@ -49,7 +49,7 @@ session_start();
                     <a class="nav-link" href="../change_settings/change_settings.php">Settings</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0 mr-sm-2" action="../shared/logout.php">
+            <form class="form-inline my-2 my-lg-0 mr-sm-2" action="../shared/php/logout.php">
                 <button id="logout_button" class="btn btn-primary" name="logout" type="submit">Logout</button>
             </form>
         </div>

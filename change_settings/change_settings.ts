@@ -15,7 +15,7 @@ function updateDisplayedAccountSettings(data:any){
     let lastname_input =  data["lastname"];
     let username_input =  data["username"];
     let email_input =  data["email"];
-    let dateofbirth_input = data["dateofbirth"]
+    let dateofbirth_input = data["dateofbirth"];
     (document.getElementById("username") as HTMLInputElement).setAttribute("value", username_input);
     (document.getElementById("first_name") as HTMLInputElement).setAttribute("value", firstname_input);
     (document.getElementById("last_name") as HTMLInputElement).setAttribute("value", lastname_input);

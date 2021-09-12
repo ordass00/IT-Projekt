@@ -31,13 +31,12 @@ function try_to_login()
                         $_SESSION["email"] = $row["email"];
                         $_SESSION["dateofbirth"] = $row["dateofbirth"];
                         $preferences = get_preferences_by_user_id($conn, $user_id);
+                        $ingredients = get_ingredients_by_user_id($conn, $user_id);
                         if ($preferences == false) {
                             header("location: ../save_preferences/save_preferences.php");
+                        } else if ($ingredients == false) {
+                            header("location: ../ingredients_input/ingredients_input.php");
                         } else {
-                            $_SESSION["intolerances"] = $preferences["Intolerances"];
-                            $_SESSION["diettype"] = $preferences["DietType"];
-                            $_SESSION["calories"] = $preferences["Calories"];
-                            //TODO redirect to user overview. At the moment it will redirect to meal_plan_overview
                             header("location: ../meal_plan_overview/meal_plan_overview.php");
                         }
                     } else {
