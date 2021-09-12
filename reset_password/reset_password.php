@@ -1,7 +1,7 @@
 <?php
 include "../shared/php/database.php";
 
-$conn = connect_local();
+$conn = connect_local_or_server();
 
 header("Content-Type: application/json");
 
@@ -32,6 +32,7 @@ if (isset($request) && !empty($request)) {
         $random_token = password_hash($random_token, PASSWORD_DEFAULT);
         $expire_time = time() + (15 * 60);
         $password_reset_db = json_encode(["random_token" => $random_token, "expire_time" => $expire_time]);
+        $conn = connect_local_or_server();
         $success = set_password_reset($conn, $id, $password_reset_db);
         if (!$success) {
           echo json_encode(["error" => true, "errorText" => "Failed to set reset-token."]);

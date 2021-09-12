@@ -6,8 +6,7 @@ export function registerUser() {
     let gender = window.localStorage["gender"];
     let firstName = window.localStorage["firstName"];
     let lastName = window.localStorage["lastName"];
-    let dateOfBirthString = window.localStorage["dateOfBirth"];
-    let dateOfBirth = new Date(dateOfBirthString);
+    let dateOfBirth = window.localStorage["dateOfBirth"];
     setUser(firstName, lastName, dateOfBirth, gender, username, email, password);
 }
 function setUser(firstName, lastName, dateOfBirth, gender, username, email, password) {

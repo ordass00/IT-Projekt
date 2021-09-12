@@ -1,7 +1,7 @@
 <?php
 include "../shared/php/database.php";
 
-$conn = connect_local();
+$conn = connect_local_or_server();
 header("Content-Type: application/json");
 $request = file_get_contents("php://input");
 
@@ -193,7 +193,7 @@ function get_current_meal_nr($conn, $user_id, $meal_type_nr)
 function increment_current_meal_nr($conn, $user_id, $meal_type_nr)
 {
     $nr = get_current_meal_nr($conn, $user_id, $meal_type_nr);
-    $sql = "update User set " . $meal_type_nr . " = ? where ID = ?;";
+    $sql = "update user set " . $meal_type_nr . " = ? where ID = ?;";
     $stmt = $conn->prepare($sql);
     $incremented_nr = ($nr + 1) % 5;
     $stmt->bindParam(1, $incremented_nr);

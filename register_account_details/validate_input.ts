@@ -8,7 +8,8 @@ export function validateInput(): boolean {
   checkDuplicatesEmail(email);
   checkDuplicatesUsername(username);
   registerUser();
-  setTimeout(() => checkRegistrationSuccess(), 100);
+  //TODO registerUser mit checkRegistrationSuccess asynchron machen
+  setTimeout(() => checkRegistrationSuccess(), 1500);
   return false;
 }
 
