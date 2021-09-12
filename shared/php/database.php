@@ -49,7 +49,7 @@ function get_user_by_user_id($conn, $user_id)
     if ($conn == null || $user_id == null) {
         return null;
     }
-    $sql = "select * from User where ID = ?;";
+    $sql = "select * from user where ID = ?;";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(1, $user_id);
     $stmt->execute();
@@ -203,4 +203,14 @@ function change_ingredients($conn, $ingredients, $user_id){
     $sql = "UPDATE ingredients SET IngredientsAtHome = :IngredientsAtHome WHERE User_ID = :User_ID;";
     $stmt = $conn->prepare($sql);
     return $stmt->execute(["IngredientsAtHome" => $ingredients, "User_ID" => $user_id]);
+}
+
+function delete_meals_by_user_id($conn, $user_id){
+    if ($conn == null || $user_id == null){
+        return null;
+    }
+    $sql = "DELETE FROM meals WHERE User_ID = ?;";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $user_id);
+    return $stmt->execute();
 }

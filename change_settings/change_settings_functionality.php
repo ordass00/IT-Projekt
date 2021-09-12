@@ -4,7 +4,7 @@ include "../shared/php/database.php";
 
 header("Content-Type: application/json");
 $request = file_get_contents("php://input");
-$conn = connect_local();
+$conn = connect_local_or_server();
 
 if (isset($request) && !empty($request)) {
     $reqObj = json_decode($request);
@@ -53,9 +53,7 @@ if (isset($request) && !empty($request)) {
         case "change_preferences":
             $intolerances_string = "";
             $intolerances_array = $reqObj->intolerances;
-            if (empty($intolerances_array)) {
-                $intolerances_string = " ";
-            } else {
+            if(!empty($intolerances_array)){
                 foreach($intolerances_array as $intolerance) {
                     $intolerances_string .= $intolerance . ", ";
                 }
@@ -65,30 +63,11 @@ if (isset($request) && !empty($request)) {
             if (!$success){
                 echo json_encode(["error" => true, "errorText" => "Failed to change preferences."]);
             } else {
-                echo json_encode(["error" => false, "errorText" => ""]);
-            }
-            break;
-
-        case "change_ingredients":
-            $ingredients_input = $reqObj->ingredients;
-            $pattern = "/^[A-Za-z]+$/";
-            $flag = true;
-            if(empty($ingredients_input)){
-                echo json_encode(["error" => true, "errorText" => "Please fill out the textarea."]);
-            } else {
-                for ($i = 0; $i < strlen($ingredients_input); $i++){
-                    if (preg_match($pattern, $ingredients_input[$i]) == 0 && $ingredients_input[$i] != "," && $ingredients_input[$i] != " ") {
-                        echo json_encode(["error" => true, "errorText" => "Please only use letters and commas for your ingredients list."]);
-                        $flag = false;
-                    }
-                }
-                if ($flag == true){
-                    $success = change_ingredients($conn, $ingredients_input, $reqObj->userid);
-                    if (!$success) {
-                        echo json_encode(["error" => true, "errorText" => "Failed to change ingredients."]);
-                    } else {
-                        echo json_encode(["error" => false, "errorText" => ""]);
-                    }
+                $successfully_deleted_old_meals = delete_meals_by_user_id($conn, $reqObj->userid);
+                if (!$successfully_deleted_old_meals){
+                    echo json_encode(["error" => true, "errorText" => "Failed to delete meals with old preferences."]);
+                } else {
+                    echo json_encode(["error" => false, "errorText" => ""]);
                 }
             }
             break;
