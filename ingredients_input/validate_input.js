@@ -10,12 +10,12 @@ function checkIngredientList() {
     }
     return true;
 }
-export function validateAndSaveIngredients(userId) {
+export function validateAndSaveIngredients(userId, fetch_url, redirect_url) {
     let ingredientInput = document.getElementById("ingredients_input").value;
     if (!checkIngredientList()) {
         return;
     }
-    fetch("validate_input.php", {
+    fetch(fetch_url, {
         method: "POST",
         body: JSON.stringify({ userId: userId, ingredients: ingredientInput }),
     }).then(function (response) {
@@ -29,7 +29,7 @@ export function validateAndSaveIngredients(userId) {
             showToastErrorMessage("error_toast", "error_text", data.errorText);
         }
         else {
-            window.location.href = "../meal_plan_overview/meal_plan_overview.php";
+            window.location.href = redirect_url;
         }
     })["catch"](function (error) {
         showToastErrorMessage("error_toast", "error_text", error.errorText);
