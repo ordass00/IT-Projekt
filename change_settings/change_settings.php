@@ -16,12 +16,14 @@ session_start();
     <link rel="stylesheet" href="../shared/css/shared_nav.css" />
 
     <script type="module">
-        import {changeAccountSettings, changePassword, changePreferences, pwdValidation} from "./change_settings.js";
+        import {changeAccountSettings, changePassword, changePreferences, updateDisplayedSettingsOnLoad, deleteAccount, pwdValidation} from "./change_settings.js";
         import {showHidePassword} from "../shared/js/shared_functions.js";
         import {validateAndSaveIngredients} from "../ingredients_input/validate_input.js";
         window.changeAccountSettings = changeAccountSettings;
         window.changePassword = changePassword;
         window.changePreferences = changePreferences;
+        window.updateDisplayedSettingsOnLoad = updateDisplayedSettingsOnLoad;
+        window.deleteAccount = deleteAccount;
         window.pwdValidation = pwdValidation;
         window.showHidePassword = showHidePassword;
         window.validateAndSaveIngredients = validateAndSaveIngredients;
@@ -29,7 +31,7 @@ session_start();
 
     <title>Account Settings</title>
 </head>
-<body>
+<body onload="updateDisplayedSettingsOnLoad();">
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -61,6 +63,7 @@ session_start();
                             <button class="nav-link" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" type="button" role="tab" aria-controls="v-pills-password" aria-selected="false"><i class="bi bi-key"></i> Change Password</button>
                             <button class="nav-link" id="v-pills-preferences-tab" data-bs-toggle="pill" data-bs-target="#v-pills-preferences" type="button" role="tab" aria-controls="v-pills-preferences" aria-selected="false"><i class="bi bi-sliders"></i> Change Preferences</button>
                             <button class="nav-link " id="v-pills-ingredients-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ingredients" type="button" role="tab" aria-controls="v-pills-ingredients" aria-selected="false"><i class="bi bi-card-text"></i> Change Ingredients</button>
+                            <button class="nav-link " id="v-pills-delete-account-tab" data-bs-toggle="pill" data-bs-target="#v-pills-delete-account" type="button" role="tab" aria-controls="v-pills-delete-account" aria-selected="false"><i class="bi bi-trash"></i> Delete Account</button>
                         </div>
                     </div>
                 </div>
@@ -89,7 +92,7 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                            <h6>PERSONAL INFORMATION</h6>
+                            <h6>GENERAL INFORMATION</h6>
                             <hr>
                             <div class="row">
                                 <div class="col">
@@ -204,7 +207,7 @@ session_start();
                                 <div class="col"></div>
                                 <div class="col">
                                     <div class="d-flex justify-content-center m-3">
-                                        <button class="btn btn-primary btn-cursor" type="submit" onclick="changeAccountSettings()">Save Changes</button>
+                                        <button class="btn btn-primary btn-cursor" type="submit" onclick="changeAccountSettings()">Save changes</button>
                                     </div>
                                 </div>
 
@@ -266,7 +269,7 @@ session_start();
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <button class="w-100 btn btn-lg btn-primary" type="submit" onclick="changePassword()">Change password</button>
+                                                        <input class="w-100 btn btn-lg btn-primary" type="button" onclick="changePassword()" value="Change password"/>
                                                     </div>
                                                 </div>
                                             </form>
@@ -300,7 +303,7 @@ session_start();
                             <h6>CHANGE PREFERENCES</h6>
                             <hr>
                             <div class="row">
-                                <div class="column">
+                                <div class="col">
                                     <div class="card">
                                         <div class="card-body">
                                             <form method="post">
@@ -320,19 +323,19 @@ session_start();
                                                     </div>
                                                     <div class="col-3">
                                                         <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" name="intolerances[]" value="dairy">
+                                                            <input id="chk_dairy" class="form-check-input" type="checkbox" name="intolerances[]" value="dairy">
                                                             <label class="form-check-label">Dairy</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-3">
                                                         <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" name="intolerances[]" value="gluten">
+                                                            <input id="chk_gluten" class="form-check-input" type="checkbox" name="intolerances[]" value="gluten">
                                                             <label class="form-check-label">Gluten</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-3">
                                                         <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" name="intolerances[]" value="grain">
+                                                            <input id="chk_grain" class="form-check-input" type="checkbox" name="intolerances[]" value="grain">
                                                             <label class="form-check-label">Grain</label>
                                                         </div>
                                                     </div>
@@ -340,19 +343,19 @@ session_start();
                                                 <div class="row mb-3">
                                                     <div class="col-3 offset-md-3">
                                                         <div class="form-check form-switch col">
-                                                            <input class="form-check-input" type="checkbox" name="intolerances[]" value="wheat">
+                                                            <input id="chk_wheat" class="form-check-input" type="checkbox" name="intolerances[]" value="wheat">
                                                             <label class="form-check-label">Wheat</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-3">
                                                         <div class="form-check form-switch col">
-                                                            <input class="form-check-input" type="checkbox" name="intolerances[]" value="peanut">
+                                                            <input id="chk_peanut" class="form-check-input" type="checkbox" name="intolerances[]" value="peanut">
                                                             <label class="form-check-label">Peanut</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-3">
                                                         <div class="form-check form-switch col">
-                                                            <input class="form-check-input" type="checkbox" name="intolerances[]" value="egg">
+                                                            <input id="chk_egg" class="form-check-input" type="checkbox" name="intolerances[]" value="egg">
                                                             <label class="form-check-label">Egg</label>
                                                         </div>
                                                     </div>
@@ -363,14 +366,14 @@ session_start();
                                                     </div>
                                                     <div class="col-sm-9">
                                                         <div class="range-wrap">
-                                                            <input type="range" class="range" min="500" max="5000" value="2750" step="10">
+                                                            <input id="input_calories_range" type="range" class="range" min="500" max="5000" value="2750" step="10">
                                                             <input name="calories" id="calories" type="hidden">
                                                             <output class="bubble"></output>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-primary btn-cursor" onclick="changePreferences()">Confirm</button>
+                                                    <input class="btn btn-primary btn-cursor" type="button" onclick="changePreferences()" value="Submit"/>
                                                 </div>
                                             </form>
                                         </div>
@@ -412,7 +415,7 @@ session_start();
                             <h6>CHANGE INGREDIENTS</h6>
                             <hr>
                             <div class="row">
-                                <div class="column">
+                                <div class="col">
                                     <div class="card">
                                         <div class="card-body">
                                             <form method="post" id="ingredients_form">
@@ -425,7 +428,7 @@ session_start();
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 d-flex justify-content-center">
-                                                    <button type="button" class="btn btn-primary btn-cursor" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid'];?>, '../ingredients_input/validate_input.php', './change_settings.php', 'error_toast_ingredients', 'error_text_ingredients')">Confirm</button>
+                                                    <input class="btn btn-primary btn-cursor" type="button" onclick="validateAndSaveIngredients(<?php echo $_SESSION['userid'];?>, '../ingredients_input/validate_input.php', '', 'error_toast_ingredients', 'error_text_ingredients')" value="Confirm"/>
                                                 </div>
                                             </form>
                                         </div>
@@ -433,6 +436,42 @@ session_start();
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="v-pills-delete-account" role="tabpanel" aria-labelledby="v-pills-delete-account-tab">
+                            <div aria-live="polite" aria-atomic="true" class="toasts-center">
+                                <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="error_toast_delete_account">
+                                    <div class="d-flex alert-danger rounded">
+                                        <div class="toast-body">
+                                            <b>Something went wrong! </b><span id="error_text_delete_account"></span>
+                                        </div>
+                                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6>DELETE ACCOUNT</h6>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form method="post">
+                                                    <p>WARNING!</p>
+                                                    <p>Are you sure you want to delete user <b><span id="curr_username"><?php echo $_SESSION["username"];?></span></b> from individumeal?</p>
+                                                    <input type="password" class="form-control mt-2" name="current_password" placeholder="Current password"
+                                                           id="current_password_input">
+                                                    <span class="show-hide-pwd-eye" onclick="showHidePassword('current_password_input');">
+                                                        <img src="../shared/img/eye.svg" alt="Eye to show/hide password">
+                                                    </span>
+                                                    <div class="mb-3 mt-3 d-flex justify-content-left">
+                                                        <input class="btn btn-primary btn-cursor" type="button" onclick="deleteAccount()" value="Confirm deletion"/>
+                                                    </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
