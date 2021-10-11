@@ -29,7 +29,11 @@ export function validateAndSaveIngredients(userId, fetch_url, redirect_url, erro
             showToastErrorMessage(error_toast_id, error_toast_text_id, data.errorText);
         }
         else {
-            window.location.href = redirect_url;
+            if(redirect_url == ""){
+                showToastMessage("successfully_changed_ingredients_toast");
+            } else {
+                window.location.href = redirect_url;
+            }
         }
     })["catch"](function (error) {
         showToastErrorMessage(error_toast_id, error_toast_text_id, error.errorText);

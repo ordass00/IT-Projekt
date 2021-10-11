@@ -1,21 +1,21 @@
 import { showToastErrorMessage, showToastMessage } from "../shared/js/shared_functions.js";
 
-export function changeAccountSettings() {
-    let firstname = (document.getElementById("first_name_input") as HTMLInputElement).value;
-    let lastname = (document.getElementById("last_name_input") as HTMLInputElement).value;
-    let username = (document.getElementById("username_input") as HTMLInputElement).value;
-    let email = (document.getElementById("email_input") as HTMLInputElement).value;
-    let dateOfBirth = (document.getElementById("date_of_birth_input") as HTMLInputElement).value;
-    let userid = (document.getElementById("user_id") as HTMLInputElement).value;
+export function changeAccountSettings(): void {
+    let firstname: string = (document.getElementById("first_name_input") as HTMLInputElement).value;
+    let lastname: string = (document.getElementById("last_name_input") as HTMLInputElement).value;
+    let username: string = (document.getElementById("username_input") as HTMLInputElement).value;
+    let email: string = (document.getElementById("email_input") as HTMLInputElement).value;
+    let dateOfBirth: string = (document.getElementById("date_of_birth_input") as HTMLInputElement).value;
+    let userid: string = (document.getElementById("user_id") as HTMLInputElement).value;
     changeUserInformation(firstname, lastname, username, email, dateOfBirth, userid);
 }
 
 function updateDisplayedAccountSettings(data:any){
-    let firstname_input =  data["firstname"];
-    let lastname_input =  data["lastname"];
-    let username_input =  data["username"];
-    let email_input =  data["email"];
-    let dateofbirth_input = data["dateofbirth"];
+    let firstname_input: string =  data["firstname"];
+    let lastname_input: string =  data["lastname"];
+    let username_input: string =  data["username"];
+    let email_input: string =  data["email"];
+    let dateofbirth_input: string = data["dateofbirth"];
     (document.getElementById("username") as HTMLInputElement).setAttribute("value", username_input);
     (document.getElementById("first_name") as HTMLInputElement).setAttribute("value", firstname_input);
     (document.getElementById("last_name") as HTMLInputElement).setAttribute("value", lastname_input);
@@ -43,7 +43,7 @@ function changeUserInformation(firstname:string, lastname:string, username:strin
             }
             throw new Error("Error in response. (change_user_information)");
         })
-        .then(function (data) {
+        .then(function (data: any) {
             if (data.error) {
                 showToastErrorMessage("error_toast", "error_text", data.errorText);
             } else {
@@ -57,9 +57,9 @@ function changeUserInformation(firstname:string, lastname:string, username:strin
 }
 
 export function changePassword() {
-    let password = (document.getElementById("new_password_input") as HTMLInputElement).value;
-    let password_repeat = (document.getElementById("repeat_new_password_input") as HTMLInputElement).value;
-    let userid = (document.getElementById("user_id") as HTMLInputElement).value;
+    let password: string = (document.getElementById("new_password_input") as HTMLInputElement).value;
+    let password_repeat: string = (document.getElementById("repeat_new_password_input") as HTMLInputElement).value;
+    let userid: string = (document.getElementById("user_id") as HTMLInputElement).value;
 
     let reqObj = {
         method: "change_password",
@@ -77,7 +77,7 @@ export function changePassword() {
             }
             throw new Error("Error in response. (change_password)");
         })
-        .then(function (data) {
+        .then(function (data: any) {
             if (data.error) {
                 showToastErrorMessage("error_toast_password", "error_text_password", data.errorText);
             } else {
@@ -88,17 +88,83 @@ export function changePassword() {
     });
 }
 
+export function updateDisplayedSettingsOnLoad(): void {
+    let userid = (document.getElementById("user_id") as HTMLInputElement).value;
+    let reqObj = {
+        method: "display_settings",
+        userid: userid,
+    };
+    fetch("change_settings_functionality.php", {
+        method: "POST",
+        body: JSON.stringify(reqObj),
+    })
+        .then(function (response: Response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Error in response. (display_preferences)");
+        })
+        .then(function (data) {
+            if (data.error) {
+                showToastErrorMessage("error_toast_preferences", "error_text_preferences", data.errorText);
+            }
+            else {
+                let user_information = data["user_information"];
+                updateDisplayedAccountSettings(user_information);
+                let preferences = data["preferences"];
+                let ingredients = data["ingredients"];
+                (document.getElementById("ingredients_input") as HTMLInputElement).value = ingredients["ingredients"];
+                let intolerances = preferences["intolerances"].split(", ");
+                let diet_type = preferences["diet_type"];
+                let calories = preferences["calories"];
+                for (var i = 0; i < intolerances.length; i++) {
+                    if (intolerances[i] == "dairy") {
+                        document.getElementById("chk_dairy").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "gluten") {
+                        document.getElementById("chk_gluten").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "grain") {
+                        document.getElementById("chk_grain").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "wheat") {
+                        document.getElementById("chk_wheat").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "peanut") {
+                        document.getElementById("chk_peanut").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "egg") {
+                        document.getElementById("chk_egg").setAttribute("checked", "checked");
+                    }
+                }
+                (document.getElementById("diet_type") as HTMLInputElement).value = diet_type;
+                let range = document.querySelector(".range") as HTMLInputElement;
+                let bubble = document.querySelector(".bubble");
+                const val = calories;
+                const min: any = range.min ? range.min : 0;
+                const max: any = range.max ? range.max : 100;
+                const sliderRange = Number(((val - min) * 100) / (max - min));
+                bubble.innerHTML = val;
+                (document.getElementById("calories") as HTMLInputElement).value = val;
+                (bubble as HTMLInputElement).style.left = `calc(${sliderRange}% + (${8 - sliderRange * 0.15}px))`;
+                (document.getElementById("input_calories_range") as HTMLInputElement).value = calories;
+            }
+        })["catch"](function (error) {
+        showToastErrorMessage("error_toast_preferences", "error_text_preferences", error.errorText);
+    });
+}
+
 export function changePreferences() {
-    let dietType = (document.getElementById("diet_type") as HTMLInputElement).value;
-    let intolerancesCheckbox = (document.getElementsByName("intolerances[]") as HTMLInputElement);
+    let dietType: string = (document.getElementById("diet_type") as HTMLInputElement).value;
+    let intolerancesCheckbox = document.getElementsByName("intolerances[]");
     let intolerances = [];
     for (var i=0; i<intolerancesCheckbox.length; i++){
-        if (intolerancesCheckbox[i].checked){
-            intolerances.push(intolerancesCheckbox[i].value);
+        if ((intolerancesCheckbox[i] as HTMLInputElement).checked){
+            intolerances.push((intolerancesCheckbox[i] as HTMLInputElement).value);
         }
     }
-    let calories = (document.getElementById("calories") as HTMLInputElement).value;
-    let userid = (document.getElementById("user_id") as HTMLInputElement).value;
+    let calories: string = (document.getElementById("calories") as HTMLInputElement).value;
+    let userid: string = (document.getElementById("user_id") as HTMLInputElement).value;
 
     let reqObj = {
         method: "change_preferences",
@@ -128,33 +194,35 @@ export function changePreferences() {
     });
 }
 
-export function changeIngredients() {
-    let ingredients = (document.getElementById("ingredients_input") as HTMLInputElement).value;
+export function deleteAccount() {
     let userid = (document.getElementById("user_id") as HTMLInputElement).value;
-
+    let current_password = (document.getElementById("current_password_input") as HTMLInputElement).value;
     let reqObj = {
-        method: "change_ingredients",
-        ingredients: ingredients,
+        method: "delete_account",
+        current_password: current_password,
         userid: userid,
     };
     fetch("change_settings_functionality.php", {
         method: "POST",
         body: JSON.stringify(reqObj),
     })
-        .then(function (response) {
+        .then(function (response: Response) {
             if (response.ok) {
                 return response.json();
             }
             throw new Error("Error in response. (change_preferences)");
         })
-        .then(function (data) {
+        .then(function (data: any) {
             if (data.error) {
-                showToastErrorMessage("error_toast_ingredients", "error_text_ingredients", data.errorText);
-            } else {
-                showToastMessage("successfully_changed_ingredients_toast");
+                showToastErrorMessage("error_toast_delete_account", "error_text_delete_account", data.errorText);
+            }
+            else {
+                localStorage.setItem("deletedAccount", "true");
+                window.location.href = "../index/index.html";
+
             }
         })["catch"](function (error) {
-        showToastErrorMessage("error_toast_ingredients", "error_text_ingredients", error.errorText);
+        showToastErrorMessage("error_toast_delete_account", "error_text_delete_account", error.errorText);
     });
 }
 
@@ -174,19 +242,19 @@ export function pwdValidation() {
 }
 
 pwd_input.onfocus = function() {
-    document.getElementsByClassName("pwd-validation")[0].style.display = "flex";
+    (document.getElementsByClassName("pwd-validation")[0] as HTMLInputElement).style.display = "flex";
 }
 
 repeat_pwd_input.onfocus = function() {
-    document.getElementsByClassName("pwd-validation")[1].style.display = "flex";
+    (document.getElementsByClassName("pwd-validation")[1] as HTMLInputElement).style.display = "flex";
 }
 
 pwd_input.onblur = function() {
-    document.getElementsByClassName("pwd-validation")[0].style.display = "none";
+    (document.getElementsByClassName("pwd-validation")[0] as HTMLInputElement).style.display = "none";
 }
 
 repeat_pwd_input.onblur = function() {
-    document.getElementsByClassName("pwd-validation")[1].style.display = "none";
+    (document.getElementsByClassName("pwd-validation")[1] as HTMLInputElement).style.display = "none";
 }
 
 pwd_input.onkeyup = function() {

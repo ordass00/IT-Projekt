@@ -1,55 +1,49 @@
 <?php
-require_once("../shared/php/database.php");
+session_start();
+include "../shared/php/database.php";
 
-function try_to_login()
-{
-    session_start();
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-        session_destroy();
-        //To Do: needs to point to main page after login
-        //header("location: welcome.php");
-        exit;
-    }
-    $conn = connect_local_or_server();
+header("Content-Type: application/json");
+$request = file_get_contents("php://input");
+$conn = connect_local_or_server();
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $sql = "SELECT id, firstname, lastname, username, email, dateofbirth, password FROM user WHERE email= ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(1, $_POST["email"]);
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() == 1) {
-                if ($row = $stmt->fetch()) {
-                    $user_id = $row["id"];
-                    $hashed_password = $row["password"];
-                    $password = $_POST["password"];
-                    if (password_verify($password, $hashed_password)) {
-                        $_SESSION["loggedin"] = true;
-                        $_SESSION["userid"] = $user_id;
-                        $_SESSION["firstname"] = $row["firstname"];
-                        $_SESSION["lastname"] = $row["lastname"];
-                        $_SESSION["username"] = $row["username"];
-                        $_SESSION["email"] = $row["email"];
-                        $_SESSION["dateofbirth"] = $row["dateofbirth"];
-                        $preferences = get_preferences_by_user_id($conn, $user_id);
-                        $ingredients = get_ingredients_by_user_id($conn, $user_id);
-                        if ($preferences == false) {
-                            header("location: ../save_preferences/save_preferences.php");
-                        } else if ($ingredients == false) {
-                            header("location: ../ingredients_input/ingredients_input.php");
-                        } else {
-                            header("location: ../meal_plan_overview/meal_plan_overview.php");
-                        }
+if (isset($request) && !empty($request)) {
+    $reqObj = json_decode($request);
+    switch ($reqObj->method) {
+        case "login_validation":
+            $email = $reqObj->email;
+            $password = $reqObj->password;
+            if (!empty($email) && !empty($password)){
+                $user_information = get_user_by_mail($conn, $email);
+                if($user_information == false) {
+                    echo json_encode(["error" => true, "errorText" => "Invalid email."]);
+                    break;
+                }
+                $user_id = $user_information["ID"];
+                $hashed_password = $user_information["Password"];
+                if(password_verify($password, $hashed_password)) {
+                    $_SESSION["loggedin"] = true;
+                    $_SESSION["userid"] = $user_id;
+                    $_SESSION["firstname"] = $user_information["FirstName"];
+                    $_SESSION["lastname"] = $user_information["LastName"];
+                    $_SESSION["username"] = $user_information["Username"];
+                    $_SESSION["email"] = $user_information["EMail"];
+                    $_SESSION["dateofbirth"] = $user_information["DateOfBirth"];
+                    $preferences = get_preferences_by_user_id($conn, $user_id);
+                    $ingredients = get_ingredients_by_user_id($conn, $user_id);
+                    if ($preferences == false) {
+                        echo json_encode(["error" => false, "errorText" => "", "preferences_set" => false]);
+                    } else if ($ingredients == false) {
+                        echo json_encode(["error" => false, "errorText" => "", "ingredients_set" => false]);
                     } else {
-                        $_POST["login_err"] = "Invalid email or password.";
+                        echo json_encode(["error" => false, "errorText" => "", "preferences_set" => true,"ingredients_set" => true]);
                     }
+                } else {
+                    echo json_encode(["error" => true, "errorText" => "Invalid password."]);
                 }
             } else {
-                $_POST["login_err"] = "Invalid email or password.";
+                echo json_encode(["error" => true, "errorText" => "Please fill out both input fields."]);
             }
-        } else {
-            echo "Something went wrong. Please try again later.";
-        }
-        unset($stmt);
+            break;
     }
-    unset($conn);
 }
+?>

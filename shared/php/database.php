@@ -101,10 +101,9 @@ function get_preferences_by_user_id($conn, $user_id)
   $stmt->bindParam(1, $user_id);
   $stmt->execute();
   if ($stmt->rowCount() == 1) {
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $result;
+      return $stmt->fetch(PDO::FETCH_ASSOC);
   } else {
-    return false;
+      return false;
   }
 }
 
@@ -189,7 +188,7 @@ function change_user_information($conn, $user_id, $new_firstname, $new_lastname,
 }
 
 function change_preferences($conn, $user_id, $diet_type, $intolerances, $calories){
-    if ($conn == null || $user_id == null || $diet_type == null || $intolerances == null || $calories == null){
+    if ($conn == null || $user_id == null || $diet_type == null || $calories == null){
         return null;
     }
     $sql = "UPDATE preferences SET DietType = :DietType, intolerances = :intolerances, Calories = :Calories WHERE User_ID = :User_ID;";
@@ -213,4 +212,25 @@ function delete_meals_by_user_id($conn, $user_id){
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(1, $user_id);
     return $stmt->execute();
+}
+
+function delete_account_by_user_id($conn, $user_id) {
+    if ($conn == null || $user_id == null) {
+        return null;
+    }
+    $sql = "DELETE FROM user WHERE ID = ?;";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $user_id);
+    return $stmt->execute();
+}
+
+function get_hashed_password_by_user_id($conn, $user_id) {
+    if ($conn == null || $user_id == null) {
+        return null;
+    }
+    $sql = "SELECT Password from user WHERE ID = ?;";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $user_id);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }

@@ -41,9 +41,8 @@
             <a class="nav-link" href="../imprint/imprint.html">Support & Imprint</a>
           </li>
         </ul>
-        <!-- Hier Logout -->
-        <form class="form-inline my-2 my-lg-0 mr-sm-2" action="">
-          <button class="btn btn-primary" type="submit">Logout</button>
+        <form class="form-inline my-2 my-lg-0 mr-sm-2" action="../shared/php/logout.php">
+            <button class="btn btn-primary" name="logout" type="submit">Logout</button>
         </form>
       </div>
     </div>
