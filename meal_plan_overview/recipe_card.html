@@ -5,26 +5,20 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
     <link rel="stylesheet" href="../shared/css/shared_overlay.css"/>
-    <link rel="stylesheet" href="../shared/css/shared_background2.css"/>
-    <link rel="stylesheet" href="taste_and_nutrition_visualization.css"/>
+    <link rel="stylesheet" href="../shared/css/shared_background3.css"/>
+    <link rel="stylesheet" href="recipe_card.css"/>
     <script type="module">
-        import {tasteAndNutrientVisualization} from "./get_recipes.js";
-        window.tasteAndNutrientVisualization = tasteAndNutrientVisualization;
+        import {recipeCard} from "./get_recipes.js";
+        window.recipeCard = recipeCard;
     </script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
 
-    <title>Taste and nutrition visualization</title>
+    <title>Recipe Card</title>
 </head>
 
-<body onload="tasteAndNutrientVisualization()" class="background_image_normal">
+<body onload="recipeCard()" class="background_image_normal">
     <main class="d-flex align-items-center justify-content-center card-design">
         <div id="overlay" class="overlay">
             <div class="d-flex justify-content-center">
@@ -32,8 +26,7 @@
                 </div>
             </div>
         </div>
-        <div id="anchor_nutrition_widget" class="m-2" style="display:none"></div>
-        <div id="anchor_taste_widget" class="m-2"></div>
+        <div id="anchor" class="m-2" style="display:none"></div>
     </main>
     <div class="row justify-content-around">
         <div class="col-8">
