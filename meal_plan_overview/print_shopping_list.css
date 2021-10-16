@@ -1,0 +1,11 @@
+@media screen {
+    body * {
+        visibility: hidden;
+    }
+}
+
+@media print {
+    body * {
+        visibility: visible;
+    }
+}
