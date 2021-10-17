@@ -18,7 +18,7 @@ For our group IT-Project at the [University of Applied Science Georg Simon OHM](
 If you want to test the website, email me under oliverdassinger@icloud.com to gain access to the credentials needed for ```individumeal.com.```<br>
 
 Otherwise you can clone this repository and start your prefered webserver (e.g [XAMPP](https://www.apachefriends.org/de/index.html)), move the repository under htdcos and call ```localhost/IT-Projekt/index/index.html ```. Standard port is 3306 (can be adjusted under shared -> php -> config.php).<br>
-Furthermore a database is needed. If you are using XAMP, go to ```http://localhost/phpmyadmin/```, create a new database with the name ```individumeal_comdb1```, click on import and then choose the sql file ```individumeal_comdb1.sql``` provided in this repository.
+Furthermore a database is needed. If you are using XAMPP, go to ```http://localhost/phpmyadmin/```, create a new database with the name ```individumeal_comdb1```, click on import and then choose the sql file ```individumeal_comdb1.sql``` provided in this repository.
 
 ## Authors
 * **Oliver Dassinger** - *Coding, Report, Presentation* - [GitHub ordass00](https://github.com/ordass00)
