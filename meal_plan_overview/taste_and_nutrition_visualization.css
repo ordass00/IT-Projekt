@@ -1,10 +1,13 @@
 body, html {
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
-#anchor {
+/* The api delivers a website that includes mouseover events that don't work. To prevent these errors from being
+displayed in the developer tools, we added pointer-events: none */
+#anchor_nutrition_widget {
     font-weight: bold;
+    pointer-events: none;
 }
 
 div .spoonacular-caption {
@@ -18,4 +21,3 @@ div .spoonacular-quickview {
 div .spoonacular-nutrient-name {
     font-size: 1em;
 }
-
