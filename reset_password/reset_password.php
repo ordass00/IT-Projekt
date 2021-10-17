@@ -31,7 +31,7 @@ if (isset($request) && !empty($request)) {
         $random_token = random_bytes(64);
         $random_token = password_hash($random_token, PASSWORD_DEFAULT);
         $expire_time = time() + (15 * 60);
-        $password_reset_db = json_encode(["random_token" => $random_token, "expire_time" => $expire_time]);
+        $password_reset_db = json_encode(["random_token" => $random_token, "expire_time" => $expire_time, "last_reset" => time()]);
         $conn = connect_local_or_server();
         $success = set_password_reset($conn, $id, $password_reset_db);
         if (!$success) {
@@ -56,7 +56,7 @@ if (isset($request) && !empty($request)) {
         height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
         <main class="reset_password_form"
           style="display: flex; justify-content: center; align-items: center; text-align: center;">
-          <form action="http://localhost/IT-Projekt/IT-Projekt/reset_password/set_new_password.php?token=' . $random_token . '&id=' . $id . '" style="background-color: rgb(0, 0, 0); background-color: rgba(152, 149, 158, 0.25); 
+          <form action="http://localhost/IT-Projekt/reset_password/set_new_password.php?token=' . $random_token . '&id=' . $id . '" style="background-color: rgb(0, 0, 0); background-color: rgba(152, 149, 158, 0.25); 
           color: white; font-weight: bold; border-radius: 5px;position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; padding: 15px; 
           margin: auto; text-align: center;">
             <h1>Forgot your password?</h1>
@@ -98,7 +98,7 @@ if (isset($request) && !empty($request)) {
       if ($token_db != $reqObj->token) {
         echo json_encode(["error" => true, "errorText" => "Reset token did not match."]);
         exit;
-      } else if ($timestamp_db > time()) {
+      } else if ($timestamp_db < time()) {
         echo json_encode(["error" => true, "errorText" => "The reset token was expired."]);
         exit;
       } else {
