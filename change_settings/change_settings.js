@@ -19,6 +19,7 @@ function updateDisplayedAccountSettings(data) {
     document.getElementById("last_name").setAttribute("value", lastname_input);
     document.getElementById("email").setAttribute("value", email_input);
     document.getElementById("date_of_birth").setAttribute("value", dateofbirth_input);
+    document.getElementById("curr_username").innerText = username_input;
 }
 function changeUserInformation(firstname, lastname, username, email, dateOfBirth, userid) {
     let reqObj = {
@@ -84,6 +85,73 @@ export function changePassword() {
         showToastErrorMessage("error_toast_password", "error_text_password", error.errorText);
     });
 }
+
+export function updateDisplayedSettingsOnLoad() {
+    let userid = document.getElementById("user_id").value;
+    let reqObj = {
+        method: "display_settings",
+        userid: userid,
+    };
+    fetch("change_settings_functionality.php", {
+        method: "POST",
+        body: JSON.stringify(reqObj),
+    })
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Error in response. (display_preferences)");
+        })
+        .then(function (data) {
+            if (data.error) {
+                showToastErrorMessage("error_toast_preferences", "error_text_preferences", data.errorText);
+            }
+            else {
+                let user_information = data["user_information"];
+                updateDisplayedAccountSettings(user_information);
+                let preferences = data["preferences"];
+                let ingredients = data["ingredients"];
+                document.getElementById("ingredients_input").value = ingredients["ingredients"];
+                let intolerances = preferences["intolerances"].split(", ");
+                let diet_type = preferences["diet_type"];
+                let calories = preferences["calories"];
+                for (var i = 0; i < intolerances.length; i++) {
+                    if (intolerances[i] == "dairy") {
+                        document.getElementById("chk_dairy").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "gluten") {
+                        document.getElementById("chk_gluten").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "grain") {
+                        document.getElementById("chk_grain").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "wheat") {
+                        document.getElementById("chk_wheat").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "peanut") {
+                        document.getElementById("chk_peanut").setAttribute("checked", "checked");
+                    }
+                    if (intolerances[i] == "egg") {
+                        document.getElementById("chk_egg").setAttribute("checked", "checked");
+                    }
+                }
+                document.getElementById("diet_type").value = diet_type;
+                let range = document.querySelector(".range");
+                let bubble = document.querySelector(".bubble");
+                const val = calories;
+                const min = range.min ? range.min : 0;
+                const max = range.max ? range.max : 100;
+                const sliderRange = Number(((val - min) * 100) / (max - min));
+                bubble.innerHTML = val;
+                document.getElementById("calories").value = val;
+                bubble.style.left = `calc(${sliderRange}% + (${8 - sliderRange * 0.15}px))`;
+                document.getElementById("input_calories_range").value = calories;
+            }
+        })["catch"](function (error) {
+        showToastErrorMessage("error_toast_preferences", "error_text_preferences", error.errorText);
+    });
+}
+
 export function changePreferences() {
     let dietType = document.getElementById("diet_type").value;
     let intolerancesCheckbox = document.getElementsByName("intolerances[]");
@@ -123,6 +191,39 @@ export function changePreferences() {
         showToastErrorMessage("error_toast_preferences", "error_text_preferences", error.errorText);
     });
 }
+
+export function deleteAccount() {
+    let userid = document.getElementById("user_id").value;
+    let current_password = document.getElementById("current_password_input").value;
+    let reqObj = {
+        method: "delete_account",
+        current_password: current_password,
+        userid: userid,
+    };
+    fetch("change_settings_functionality.php", {
+        method: "POST",
+        body: JSON.stringify(reqObj),
+    })
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Error in response. (change_preferences)");
+        })
+        .then(function (data) {
+            if (data.error) {
+                showToastErrorMessage("error_toast_delete_account", "error_text_delete_account", data.errorText);
+            }
+            else {
+                localStorage.setItem("deletedAccount", "true");
+                window.location.href = "../index/index.html";
+
+            }
+        })["catch"](function (error) {
+        showToastErrorMessage("error_toast_delete_account", "error_text_delete_account", error.errorText);
+    });
+}
+
 let pwd_input = document.getElementById("new_password_input");
 let repeat_pwd_input = document.getElementById("repeat_new_password_input");
 let lower_case_letters_error_msg = document.getElementById("lower_case");
