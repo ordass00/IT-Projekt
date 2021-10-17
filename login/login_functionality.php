@@ -15,7 +15,7 @@ if (isset($request) && !empty($request)) {
             if (!empty($email) && !empty($password)){
                 $user_information = get_user_by_mail($conn, $email);
                 if($user_information == false) {
-                    echo json_encode(["error" => true, "errorText" => "Invalid email."]);
+                    echo json_encode(["error" => true, "errorText" => "Invalid email or email is not yet registered."]);
                     break;
                 }
                 $user_id = $user_information["ID"];

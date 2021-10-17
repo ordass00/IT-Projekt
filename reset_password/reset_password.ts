@@ -48,17 +48,18 @@ export function set_new_password(): boolean {
         showToastErrorMessage("error_toast", "error_text", "The process to reset the password was not started yet.");
         return false;
     }
-    let password = (document.getElementById("new_password") as HTMLInputElement).value;
-    let password_check = (document.getElementById("new_password_check") as HTMLInputElement).value;
+    let password = (document.getElementById("new_password_input") as HTMLInputElement).value;
+    let password_check = (document.getElementById("repeat_new_password_input") as HTMLInputElement).value;
     if (password != password_check) {
-        showToastErrorMessage("error_toast", "error_text", "The passwords did not match.");
+        showToastErrorMessage("error_toast", "error_text", "The passwords do not match.");
         return false;
     }
     let reqObj = {
         method: "reset_password",
         password: password,
+        password_check: password_check,
         token: token,
-        id: id
+        id: id,
     };
     fetch("reset_password.php", {
         method: "POST",

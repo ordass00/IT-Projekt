@@ -8,8 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
     <link rel="stylesheet" href="reset_password.css" />
     <link rel="stylesheet" href="../shared/css/shared_background.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../shared/css/shared_pwd_hide_eye.css" />
     <link rel="stylesheet" href="../shared/css/shared_toasts.css">
     <link rel="stylesheet" href="../shared/css/shared_form.css">
+    <link rel="stylesheet" href="../shared/css/shared_pwd_validation.css">
 
     <title>Reset password</title>
 
@@ -18,11 +21,17 @@
             set_new_password
         } from "./reset_password.js";
         import {
-            showToastErrorMessage
+            showToastErrorMessage,
+            showHidePassword, show_password_validation, hide_password_validation, validate_password, validate_password_repeat
         } from "../shared/js/shared_functions.js";
         window.showToastErrorMessage = showToastErrorMessage;
         window.showToastErrorMessage = showToastErrorMessage;
         window.set_new_password = set_new_password;
+        window.showHidePassword = showHidePassword;
+        window.show_password_validation = show_password_validation;
+        window.hide_password_validation = hide_password_validation;
+        window.validate_password = validate_password;
+        window.validate_password_repeat = validate_password_repeat;
     </script>
 </head>
 
@@ -61,12 +70,33 @@
             <h1 class="h3 mb-3 fw-normal">Set a new password.</h1>
             <div class="reset_password_content">
                 <p class="m-3">You can now set your new password.</p>
-                <div class="d-flex justify-content-center mb-3">
-                    <input type="password" class="form-control w-75" placeholder="New password"  id="new_password" required autocomplete="new-password" minlength="8" />
-                </div>
-                <div class="d-flex justify-content-center">
-                    <input type="password" class="form-control w-75" placeholder="Repeat password" id="new_password_check" required autocomplete="new-password" minlength="8" />
-                </div>
+                    <input type="password" class="form-control" placeholder="New password"  id="new_password_input" required autocomplete="new-password"
+                           onfocus="show_password_validation('password_input_field')" onblur="hide_password_validation('password_input_field')"
+                           onkeyup="validate_password('new_password_input')"/>
+                    <span class="show-hide-pwd-eye" onclick="showHidePassword('new_password_input');">
+                        <img src="../shared/img/eye.svg" alt="Eye to show/hide password">
+                    </span>
+                    <div class="row pwd-validation mt-1 mb-2">
+                    <div class="col-sm-6 mt-1">
+                        <span id="min_eight_chars" class="bi bi-x-lg" style="color: red;"></span> 8 characters long<br>
+                        <span id="upper_case" class="bi bi-x-lg" style="color: red;"></span> 1 uppercase letter<br>
+                    </div>
+                    <div class="col-sm-6 mt-1 mb-2">
+                        <span id="lower_case" class="bi bi-x-lg" style="color: red;"></span> 1 lowercase letter<br>
+                        <span id="one_number" class="bi bi-x-lg" style="color: red;"></span> 1 number<br>
+                    </div>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Repeat password" id="repeat_new_password_input" required autocomplete="new-password"
+                           onfocus="show_password_validation('repeat_password_input_field')" onblur="hide_password_validation('repeat_password_input_field')"
+                           onkeyup="validate_password_repeat('new_password_input','repeat_new_password_input')"/>
+                    <span class="show-hide-pwd-eye" onclick="showHidePassword('repeat_new_password_input');">
+                        <img src="../shared/img/eye.svg" alt="Eye to show/hide password">
+                    </span>
+                    <div class="row pwd-validation mt-1">
+                        <div class="col-sm-12 mt-1">
+                        <span id="password_match" class="bi bi-x-lg" style="color: red;"></span> Passwords match<br>
+                        </div>
+                    </div>
                 <div class="d-flex justify-content-center m-3">
                     <button class="btn btn-lg btn-primary m-2" type="submit">
                         Reset password

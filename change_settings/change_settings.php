@@ -12,12 +12,13 @@ session_start();
     <link rel="stylesheet" href="change_settings.css" />
     <link rel="stylesheet" href="../shared/css/shared_toasts.css" />
     <link rel="stylesheet" href="../shared/css/shared_pwd_hide_eye.css" />
+    <link rel="stylesheet" href="../shared/css/shared_pwd_validation.css" />
     <link rel="stylesheet" href="../save_preferences/save_preferences.css" />
     <link rel="stylesheet" href="../shared/css/shared_nav.css" />
 
     <script type="module">
         import {changeAccountSettings, changePassword, changePreferences, updateDisplayedSettingsOnLoad, deleteAccount, pwdValidation} from "./change_settings.js";
-        import {showHidePassword} from "../shared/js/shared_functions.js";
+        import {showHidePassword, show_password_validation, hide_password_validation, validate_password, validate_password_repeat} from "../shared/js/shared_functions.js";
         import {validateAndSaveIngredients} from "../ingredients_input/validate_input.js";
         window.changeAccountSettings = changeAccountSettings;
         window.changePassword = changePassword;
@@ -26,6 +27,12 @@ session_start();
         window.deleteAccount = deleteAccount;
         window.pwdValidation = pwdValidation;
         window.showHidePassword = showHidePassword;
+
+        window.show_password_validation = show_password_validation;
+        window.hide_password_validation = hide_password_validation;
+        window.validate_password = validate_password;
+        window.validate_password_repeat = validate_password_repeat;
+
         window.validateAndSaveIngredients = validateAndSaveIngredients;
     </script>
 
@@ -244,7 +251,8 @@ session_start();
                                             <form method="post" onsubmit="return pwdValidation();">
                                                 <div class="container">
                                                     <input type="password" class="form-control" name="new_password" placeholder="New password"
-                                                           id="new_password_input" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                                                           id="new_password_input" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onfocus="show_password_validation('password_input_field')"
+                                                           onblur="hide_password_validation('password_input_field')" onkeyup="validate_password('new_password_input')">
                                                     <span class="show-hide-pwd-eye" onclick="showHidePassword('new_password_input');">
                                                          <img src="../shared/img/eye.svg" alt="Eye to show/hide password">
                                                      </span>
@@ -259,7 +267,8 @@ session_start();
                                                         </div>
                                                     </div>
                                                     <input type="password" class="form-control mt-2" name="repeat_password" placeholder="Repeat password"
-                                                           id="repeat_new_password_input">
+                                                           id="repeat_new_password_input" onfocus="show_password_validation('repeat_password_input_field')"
+                                                           onblur="hide_password_validation('repeat_password_input_field')" onkeyup="validate_password_repeat('new_password_input','repeat_new_password_input')">
                                                     <span class="show-hide-pwd-eye" onclick="showHidePassword('repeat_new_password_input');">
                                                         <img src="../shared/img/eye.svg" alt="Eye to show/hide password">
                                                     </span>

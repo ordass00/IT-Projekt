@@ -70,8 +70,5 @@ body {
 }
 
 .pwd-validation {
-    display: none;
-    color: black;
-    font-weight: normal;
-    text-align: left;
+    color: black!important;
 }

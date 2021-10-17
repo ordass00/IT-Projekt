@@ -39,5 +39,14 @@ if (isset($request) && !empty($request)) {
                 echo json_encode(["error" => true, "errorText" => "Not able to create user account."]);
             }
             break;
+        case "change_password":
+            $pattern = "/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/";
+            $password = $reqObj->password;
+            if (preg_match($pattern, $password) == 1) {
+                echo json_encode(["error" => false, "errorText" => ""]);
+            } else {
+                echo json_encode(["error" => true, "errorText" => "Your password must match the required format."]);
+            }
+            break;
     }
 }
