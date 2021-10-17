@@ -1,0 +1,10 @@
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+
+#anchor img {
+    height: 50em;
+    width: 35em;
+    margin-top: 12em;
+}

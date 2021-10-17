@@ -1,6 +1,6 @@
 body, html {
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .card-img-top {

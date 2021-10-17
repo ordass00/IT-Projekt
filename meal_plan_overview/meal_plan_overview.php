@@ -19,21 +19,22 @@ session_start();
     <script type="module">
         import {
             getRecipesByUserId,
-            printDiv,
             changeWebsiteToTasteAndNutritionVisualization,
-            incrementCurrentMealNr
+            incrementCurrentMealNr,
+            changeWebsiteToPrintShoppingList,
+            changeWebsiteToRecipeCard
         } from "./get_recipes.js";
 
         getRecipesByUserId(<?php echo $_SESSION['userid']; ?>);
-        window.printDiv = printDiv;
         window.changeWebsiteToTasteAndNutritionVisualization = changeWebsiteToTasteAndNutritionVisualization;
         window.incrementCurrentMealNr = incrementCurrentMealNr;
+        window.changeWebsiteToPrintShoppingList = changeWebsiteToPrintShoppingList;
+        window.changeWebsiteToRecipeCard = changeWebsiteToRecipeCard;
     </script>
 
     <title>Meal Plan Overview</title>
 </head>
-<body>
-<div class="background_image_normal"></div>
+<body class="background_image_normal">
 <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-flex">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -61,7 +62,7 @@ session_start();
              id="error_toast">
             <div class="d-flex alert-danger rounded">
                 <div class="toast-body">
-                    <b>Something went wrong! </b><span id="error_text"></span>
+                    <b>Something went wrong! </b><span id="error_text" style="white-space: pre-line;"></span>
                 </div>
                 <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                         aria-label="Close"></button>
@@ -87,19 +88,14 @@ session_start();
                 <div class="card-body">
                     <h3 id="breakfast_title_card_id"
                         class="card-title d-flex align-items-center justify-content-center">Card title</h3>
-                    <div id="printable_area_breakfast" style="display: none;">
-                        <h3 id="breakfast_title_print_id" class="card-title">Card title</h3>
-                        <h6 class="mt-4">Used Ingredients:</h6>
-                        <ul id="breakfast_used_ingredients_list_id" class="list-group"></ul>
-                        <h6 class="mt-4">Missed Ingredients:</h6>
-                        <ul id="breakfast_missed_ingredients_list_id" class="list-group"></ul>
-                    </div>
                     <input type="button" class="btn btn-primary mt-4"
-                           onclick="printDiv('printable_area_breakfast')" value="Print Shopping List"/>
+                           onclick="changeWebsiteToPrintShoppingList('breakfast')" value="Print Shopping List"/>
                     <input type="button" class="btn btn-primary mt-4"
                            onclick="changeWebsiteToTasteAndNutritionVisualization('breakfast')"
                            value="Taste And Nutrition Visualization"/>
-                    <a href="#" class="btn btn-primary mt-4">Cook Instructions</a>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="changeWebsiteToRecipeCard('breakfast')"
+                           value="Cook Instructions"/>
                     <input type="button" class="btn btn-primary mt-4"
                            onclick="incrementCurrentMealNr(<?php echo $_SESSION['userid']; ?>, 'BreakfastNr')"
                            value="Reroll Meal"/>
@@ -111,19 +107,14 @@ session_start();
                 <div class="card-body">
                     <h3 id="lunch_title_card_id" class="card-title d-flex align-items-center justify-content-center">
                         Card title</h3>
-                    <div id="printable_area_lunch" style="display: none;">
-                        <h3 id="lunch_title_print_id" class="card-title">Card title</h3>
-                        <h6 class="mt-4">Used Ingredients:</h6>
-                        <ul id="lunch_used_ingredients_list_id" class="list-group"></ul>
-                        <h6 class="mt-4">Missed Ingredients:</h6>
-                        <ul id="lunch_missed_ingredients_list_id" class="list-group"></ul>
-                    </div>
                     <input type="button" class="btn btn-primary mt-4"
-                           onclick="printDiv('printable_area_lunch')" value="Print Shopping List"/>
+                           onclick="changeWebsiteToPrintShoppingList('lunch')" value="Print Shopping List"/>
                     <input type="button" class="btn btn-primary mt-4"
                            onclick="changeWebsiteToTasteAndNutritionVisualization('lunch')"
                            value="Taste And Nutrition Visualization"/>
-                    <a href="#" class="btn btn-primary mt-4">Cook Instructions</a>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="changeWebsiteToRecipeCard('lunch')"
+                           value="Cook Instructions"/>
                     <input type="button" class="btn btn-primary mt-4"
                            onclick="incrementCurrentMealNr(<?php echo $_SESSION['userid']; ?>, 'LunchNr')"
                            value="Reroll Meal"/>
@@ -135,19 +126,14 @@ session_start();
                 <div class="card-body">
                     <h3 id="dinner_title_card_id" class="card-title d-flex align-items-center justify-content-center">
                         Card title</h3>
-                    <div id="printable_area_dinner" style="display: none;">
-                        <h3 id="dinner_title_print_id" class="card-title">Card title</h3>
-                        <h6 class="mt-4">Used Ingredients:</h6>
-                        <ul id="dinner_used_ingredients_list_id" class="list-group"></ul>
-                        <h6 class="mt-4">Missed Ingredients:</h6>
-                        <ul id="dinner_missed_ingredients_list_id" class="list-group"></ul>
-                    </div>
-                    <input type="button" class="btn btn-primary mt-4"
-                           onclick="printDiv('printable_area_dinner')" value="Print Shopping List"/>
+                    <input type="button" class="btn btn-primary mt-4 myDivToPrint"
+                           onclick="changeWebsiteToPrintShoppingList('dinner')" value="Print Shopping List"/>
                     <input type="button" class="btn btn-primary mt-4"
                            onclick="changeWebsiteToTasteAndNutritionVisualization('dinner')"
                            value="Taste And Nutrition Visualization"/>
-                    <a href="#" class="btn btn-primary mt-4">Cook Instructions</a>
+                    <input type="button" class="btn btn-primary mt-4"
+                           onclick="changeWebsiteToRecipeCard('dinner')"
+                           value="Cook Instructions"/>
                     <input type="button" class="btn btn-primary mt-4"
                            onclick="incrementCurrentMealNr(<?php echo $_SESSION['userid']; ?>, 'DinnerNr')"
                            value="Reroll Meal"/>
