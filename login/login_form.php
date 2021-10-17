@@ -1,6 +1,5 @@
 <?php
-require_once("login_functionality.php");
-try_to_login();
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +19,15 @@ try_to_login();
     <script type="module">
         import {
             successfullyRegisteredToast,
-            successfullyResetToast
+            successfullyResetToast,
+            loginValidation
         } from "./login.js";
         import {
             showHidePassword
         } from "../shared/js/shared_functions.js";
         window.successfullyRegisteredToast = successfullyRegisteredToast;
         window.successfullyResetToast = successfullyResetToast;
+        window.loginValidation = loginValidation;
         window.showHidePassword = showHidePassword;
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
@@ -84,15 +85,15 @@ try_to_login();
         </div>
     </div>
     <main class="form">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <form method="POST">
             <h1 class="h3 mb-3 fw-normal">Login</h1>
-            <input type="email" class="form-control mb-3" name="email" placeholder="name@example.com" autocomplete="email" required>
-            <input type="password" class="form-control" name="password" placeholder="Password" id="password_input" autocomplete="current-password" required>
+            <input type="email" id="email_input" class="form-control mb-3" name="email" placeholder="name@example.com" autocomplete="email">
+            <input type="password" class="form-control" name="password" placeholder="Password" id="password_input" autocomplete="current-password">
             <span class="show-hide-pwd-eye" onclick="showHidePassword('password_input');">
                 <img src="../shared/img/eye.svg" alt="Eye to show/hide password">
             </span>
             <div class="mb-3">
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+                <input class="w-100 btn btn-lg btn-primary" type="button" onclick="loginValidation()" value="Submit"/>
             </div>
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column">
@@ -103,16 +104,6 @@ try_to_login();
             </div>
             <p class="mt-3 mb-3 text-muted">&copy; 2021 individumeal.com</p>
         </form>
-        <?php
-        if (!empty($_POST['login_err'])) {
-            $login_err = $_POST['login_err'];
-            echo "<script type='module'>
-                    import {showToastErrorMessage} from '../shared/js/shared_functions.js';
-                    window.showToastErrorMessage = showToastErrorMessage;
-                    showToastErrorMessage('error_toast','error_text','$login_err');
-                 </script>";
-        }
-        ?>
     </main>
 </body>
 

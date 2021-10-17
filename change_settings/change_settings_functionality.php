@@ -59,6 +59,7 @@ if (isset($request) && !empty($request)) {
                 }
                 $intolerances_string = rtrim($intolerances_string, ", ");
             }
+
             $success = change_preferences($conn, $reqObj->userid, $reqObj->dietType, $intolerances_string, $reqObj->calories);
             if (!$success){
                 echo json_encode(["error" => true, "errorText" => "Failed to change preferences."]);
@@ -69,6 +70,45 @@ if (isset($request) && !empty($request)) {
                 } else {
                     echo json_encode(["error" => false, "errorText" => ""]);
                 }
+            }
+            break;
+
+        case "display_settings":
+            $preferences = get_preferences_by_user_id($conn, $reqObj->userid);
+            $ingredients = get_ingredients_by_user_id($conn, $reqObj->userid);
+            $user_information = get_user_by_user_id($conn, $reqObj->userid);
+            if ($preferences != false && $ingredients != false && $user_information != false) {
+                $displayed_preferences = array();
+                $displayed_ingredients = array();
+                $displayed_general_information = array();
+                $displayed_preferences["diet_type"] = $preferences["DietType"];
+                $displayed_preferences["intolerances"] = $preferences["Intolerances"];
+                $displayed_preferences["calories"] = $preferences["Calories"];
+                $displayed_ingredients["ingredients"] = $ingredients["IngredientsAtHome"];
+                $displayed_general_information["dateofbirth"] = $user_information["DateOfBirth"];
+                $displayed_general_information["username"] = $user_information["Username"];
+                $displayed_general_information["firstname"] = $user_information["FirstName"];
+                $displayed_general_information["lastname"] = $user_information["LastName"];
+                $displayed_general_information["email"] = $user_information["EMail"];
+                echo json_encode(["error" => false, "errorText" => "", "preferences" => $displayed_preferences, "ingredients" => $displayed_ingredients, "user_information" => $displayed_general_information]);
+            } else {
+                echo json_encode(["error" => true, "errorText" => "Failed to retrieve information."]);
+            }
+            break;
+
+        case "delete_account":
+            $hashed_password_from_db = get_hashed_password_by_user_id($conn, $reqObj->userid);
+            $hashed_password_from_db = $hashed_password_from_db["Password"];
+            $current_password_input = $reqObj->current_password;
+            if (password_verify($current_password_input, $hashed_password_from_db)) {
+                $deleted_account = delete_account_by_user_id($conn, $reqObj->userid);
+                if ($deleted_account != false ) {
+                    echo json_encode(["error" => false, "errorText" => ""]);
+                } else {
+                    echo json_encode(["error" => true, "errorText" => "Failed to delete the account."]);
+                }
+            } else {
+                echo json_encode(["error" => true, "errorText" => "Entered password is not your current password. Please try again."]);
             }
             break;
     }

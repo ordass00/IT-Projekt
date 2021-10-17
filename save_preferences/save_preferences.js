@@ -8,6 +8,7 @@ allRanges.forEach(wrap => {
     });
     setBubble(range, bubble);
 });
+
 function setBubble(range, bubble) {
     const val = range.value;
     const min = range.min ? range.min : 0;
