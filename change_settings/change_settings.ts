@@ -226,101 +226,11 @@ export function deleteAccount() {
     });
 }
 
-let pwd_input = (document.getElementById("new_password_input") as HTMLInputElement);
-let repeat_pwd_input = (document.getElementById("repeat_new_password_input") as HTMLInputElement);
-let lower_case_letters_error_msg = (document.getElementById("lower_case") as HTMLInputElement);
-let upper_case_letters_error_msg = (document.getElementById("upper_case") as HTMLInputElement);
-let numbers_error_msg = (document.getElementById("one_number") as HTMLInputElement);
-let min_eight_chars_error_msg = (document.getElementById("min_eight_chars") as HTMLInputElement);
-let pwd_match_error_msg = (document.getElementById("password_match") as HTMLInputElement);
-
 export function pwdValidation() {
+    let pwd_input = (document.getElementById("new_password_input") as HTMLInputElement);
+    let repeat_pwd_input = (document.getElementById("repeat_new_password_input") as HTMLInputElement);
     if (repeat_pwd_input.value.length == 0 || pwd_input.value.length == 0){
         return false;
     }
     return repeat_pwd_input.value == pwd_input.value;
-}
-
-pwd_input.onfocus = function() {
-    (document.getElementsByClassName("pwd-validation")[0] as HTMLInputElement).style.display = "flex";
-}
-
-repeat_pwd_input.onfocus = function() {
-    (document.getElementsByClassName("pwd-validation")[1] as HTMLInputElement).style.display = "flex";
-}
-
-pwd_input.onblur = function() {
-    (document.getElementsByClassName("pwd-validation")[0] as HTMLInputElement).style.display = "none";
-}
-
-repeat_pwd_input.onblur = function() {
-    (document.getElementsByClassName("pwd-validation")[1] as HTMLInputElement).style.display = "none";
-}
-
-pwd_input.onkeyup = function() {
-    let lower_case_letters = /[a-z]/g;
-    let upper_case_letters = /[A-Z]/g;
-    let numbers = /[0-9]/g;
-
-    if (pwd_input.value.match(lower_case_letters)){
-        lower_case_letters_error_msg.classList.remove("bi-x-lg");
-        lower_case_letters_error_msg.classList.add("bi-check-lg");
-        lower_case_letters_error_msg.style["color"] = "green";
-    } else {
-        lower_case_letters_error_msg.classList.remove("bi-check-lg");
-        lower_case_letters_error_msg.classList.add("bi-x-lg");
-        lower_case_letters_error_msg.style["color"] = "red";
-    }
-
-    if (pwd_input.value.match(upper_case_letters)){
-        upper_case_letters_error_msg.classList.remove("bi-x-lg");
-        upper_case_letters_error_msg.classList.add("bi-check-lg");
-        upper_case_letters_error_msg.style["color"] = "green";
-    } else {
-        upper_case_letters_error_msg.classList.remove("bi-check-lg");
-        upper_case_letters_error_msg.classList.add("bi-x-lg");
-        upper_case_letters_error_msg.style["color"] = "red";
-    }
-
-    if (pwd_input.value.match(numbers)){
-        numbers_error_msg.classList.remove("bi-x-lg");
-        numbers_error_msg.classList.add("bi-check-lg");
-        numbers_error_msg.style["color"] = "green";
-    } else {
-        numbers_error_msg.classList.remove("bi-check-lg");
-        numbers_error_msg.classList.add("bi-x-lg");
-        numbers_error_msg.style["color"] = "red";
-    }
-
-    if (pwd_input.value.length >= 8){
-        min_eight_chars_error_msg.classList.remove("bi-x-lg");
-        min_eight_chars_error_msg.classList.add("bi-check-lg");
-        min_eight_chars_error_msg.style["color"] = "green";
-    } else {
-        min_eight_chars_error_msg.classList.remove("bi-check-lg");
-        min_eight_chars_error_msg.classList.add("bi-x-lg");
-        min_eight_chars_error_msg.style["color"] = "red";
-    }
-
-    if (pwd_input.value != repeat_pwd_input.value){
-        pwd_match_error_msg.classList.remove("bi-check-lg");
-        pwd_match_error_msg.classList.add("bi-x-lg");
-        pwd_match_error_msg.style["color"] = "red";
-    } else {
-        pwd_match_error_msg.classList.remove("bi-x-lg");
-        pwd_match_error_msg.classList.add("bi-check-lg");
-        pwd_match_error_msg.style["color"] = "green";
-    }
-}
-
-repeat_pwd_input.onkeyup = function() {
-    if (repeat_pwd_input.value != pwd_input.value) {
-        pwd_match_error_msg.classList.remove("bi-check-lg");
-        pwd_match_error_msg.classList.add("bi-x-lg");
-        pwd_match_error_msg.style["color"] = "red";
-    } else {
-        pwd_match_error_msg.classList.remove("bi-x-lg");
-        pwd_match_error_msg.classList.add("bi-check-lg");
-        pwd_match_error_msg.style["color"] = "green";
-    }
 }
