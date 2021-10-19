@@ -14,12 +14,10 @@ if (isset($request) && !empty($request)) {
         if($existing_entry){
             $success = change_ingredients($conn, json_decode($request)->ingredients, json_decode($request)->userId);
             if (!$success){
-//                echo json_encode(["error" => true, "errorText" => "Failed to change ingredients."]);
                 $result["errorText"] = "Failed to change ingredients.";
             } else {
                 $successfully_deleted_old_meals = delete_meals_by_user_id($conn, json_decode($request)->userId);
                 if (!$successfully_deleted_old_meals){
-//                    echo json_encode(["error" => true, "errorText" => "Failed to delete meals with old preferences."]);
                     $result["errorText"] = "Failed to delete meals with old preferences.";
                 }
             }
