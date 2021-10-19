@@ -100,6 +100,10 @@ if (isset($request) && !empty($request)) {
             $hashed_password_from_db = get_hashed_password_by_user_id($conn, $reqObj->userid);
             $hashed_password_from_db = $hashed_password_from_db["Password"];
             $current_password_input = $reqObj->current_password;
+            if(empty($current_password_input)){
+                echo json_encode(["error" => true, "errorText" => "Please fill out the input field."]);
+                exit;
+            }
             if (password_verify($current_password_input, $hashed_password_from_db)) {
                 $deleted_account = delete_account_by_user_id($conn, $reqObj->userid);
                 if ($deleted_account != false ) {
