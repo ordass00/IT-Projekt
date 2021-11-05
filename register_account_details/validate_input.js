@@ -12,13 +12,13 @@ export function validateInput() {
     return false;
 }
 function checkPasswordValidation() {
-    if(window.localStorage["password_success"] == "true"){
+    if (window.localStorage["password_success"] == "true") {
         registerUser();
-    } else {
+    }
+    else {
         showToastErrorMessage("error_toast", "error_text", "Your password must match the required format.");
     }
 }
-
 function checkRegistrationSuccess() {
     if (window.localStorage["email_success"] == "true" && window.localStorage["username_success"] == "true" && window.localStorage["password_success"] == "true") {
         localStorage.setItem("registered", "true");
@@ -96,19 +96,19 @@ function checkPassword(password) {
         body: JSON.stringify(reqObj),
     })
         .then(function (response) {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Error in response. (change_password)");
-        })
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error("Error in response. (change_password)");
+    })
         .then(function (data) {
-            if (data.error) {
-                showToastErrorMessage("error_toast", "error_text", data.errorText);
-            }
-            else {
-                localStorage.setItem("password_success", "true");
-            }
-        })["catch"](function (error) {
+        if (data.error) {
+            showToastErrorMessage("error_toast", "error_text", data.errorText);
+        }
+        else {
+            localStorage.setItem("password_success", "true");
+        }
+    })["catch"](function (error) {
         showToastErrorMessage("error_toast", "error_text", error.errorText);
     });
 }
