@@ -1,7 +1,7 @@
 import { showToastErrorMessage, showToastMessage } from "../shared/js/shared_functions.js";
 function checkIngredientList() {
     let ingredientInput = document.getElementById("ingredients_input").value;
-    var letters = /^[A-Za-z]+$/;
+    const letters = /^[A-Za-z]+$/;
     for (let i = 0; i < ingredientInput.length; i++) {
         if (!ingredientInput[i].match(letters) && ingredientInput[i] !== "," && ingredientInput[i] !== " ") {
             showToastMessage("wrong_ingredient_format_toast");
@@ -29,11 +29,7 @@ export function validateAndSaveIngredients(userId, fetch_url, redirect_url, erro
             showToastErrorMessage(error_toast_id, error_toast_text_id, data.errorText);
         }
         else {
-            if(redirect_url == ""){
-                showToastMessage("successfully_changed_ingredients_toast");
-            } else {
-                window.location.href = redirect_url;
-            }
+            window.location.href = redirect_url;
         }
     })["catch"](function (error) {
         showToastErrorMessage(error_toast_id, error_toast_text_id, error.errorText);
