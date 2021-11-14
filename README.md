@@ -11,8 +11,8 @@ For our group IT-Project at the [University of Applied Science Georg Simon OHM](
 
 ## Content
 - TBA/WIP
-- Presentation as [PDF]()
-- Report as [PDF]()
+- Presentation as [PDF](./Projectpresentation.pdf)
+- Report as [PDF](./Projectreport.pdf)
 
 ## Getting started
 If you want to test the website, email me under oliverdassinger@icloud.com to gain access to the credentials needed for ```individumeal.com.```<br>
