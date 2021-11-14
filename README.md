@@ -24,8 +24,5 @@ Furthermore a database is needed. If you are using XAMPP, go to ```http://localh
 * **Armin Bruckmann** - *Coding, Report, Presentation* - [GitHub ArminShinobi](https://github.com/ArminShinobi)
 * **Felix Berger** - *Coding, Report, Presentation* - [GitHub Zylesto](https://github.com/Zylesto)
 
-## License
-WIP
-
 ## Acknowledgements
 The authors would like to thank [Prof. Dr. Matthias Teßmann](https://www.th-nuernberg.de/person/tessmann-matthias/) that supervised our project and had always been a good contact person for problems arising.
