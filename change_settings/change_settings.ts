@@ -117,24 +117,24 @@ export function updateDisplayedSettingsOnLoad(): void {
                 let intolerances = preferences["intolerances"].split(", ");
                 let diet_type = preferences["diet_type"];
                 let calories = preferences["calories"];
-                for (var i = 0; i < intolerances.length; i++) {
+                for (let i = 0; i < intolerances.length; i++) {
                     if (intolerances[i] == "dairy") {
-                        document.getElementById("chk_dairy").setAttribute("checked", "checked");
+                        document.getElementById("chk_dairy")?.setAttribute("checked", "checked");
                     }
                     if (intolerances[i] == "gluten") {
-                        document.getElementById("chk_gluten").setAttribute("checked", "checked");
+                        document.getElementById("chk_gluten")?.setAttribute("checked", "checked");
                     }
                     if (intolerances[i] == "grain") {
-                        document.getElementById("chk_grain").setAttribute("checked", "checked");
+                        document.getElementById("chk_grain")?.setAttribute("checked", "checked");
                     }
                     if (intolerances[i] == "wheat") {
-                        document.getElementById("chk_wheat").setAttribute("checked", "checked");
+                        document.getElementById("chk_wheat")?.setAttribute("checked", "checked");
                     }
                     if (intolerances[i] == "peanut") {
-                        document.getElementById("chk_peanut").setAttribute("checked", "checked");
+                        document.getElementById("chk_peanut")?.setAttribute("checked", "checked");
                     }
                     if (intolerances[i] == "egg") {
-                        document.getElementById("chk_egg").setAttribute("checked", "checked");
+                        document.getElementById("chk_egg")?.setAttribute("checked", "checked");
                     }
                 }
                 (document.getElementById("diet_type") as HTMLInputElement).value = diet_type;
@@ -144,7 +144,7 @@ export function updateDisplayedSettingsOnLoad(): void {
                 const min: any = range.min ? range.min : 0;
                 const max: any = range.max ? range.max : 100;
                 const sliderRange = Number(((val - min) * 100) / (max - min));
-                bubble.innerHTML = val;
+                bubble!.innerHTML = val;
                 (document.getElementById("calories") as HTMLInputElement).value = val;
                 (bubble as HTMLInputElement).style.left = `calc(${sliderRange}% + (${8 - sliderRange * 0.15}px))`;
                 (document.getElementById("input_calories_range") as HTMLInputElement).value = calories;
@@ -158,7 +158,7 @@ export function changePreferences() {
     let dietType: string = (document.getElementById("diet_type") as HTMLInputElement).value;
     let intolerancesCheckbox = document.getElementsByName("intolerances[]");
     let intolerances = [];
-    for (var i=0; i<intolerancesCheckbox.length; i++){
+    for (let i=0; i<intolerancesCheckbox.length; i++){
         if ((intolerancesCheckbox[i] as HTMLInputElement).checked){
             intolerances.push((intolerancesCheckbox[i] as HTMLInputElement).value);
         }

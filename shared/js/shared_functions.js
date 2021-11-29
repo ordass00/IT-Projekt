@@ -22,20 +22,22 @@ export function showToastMessage(id) {
     toastElement.show();
 }
 export function show_password_validation(password_input_field_or_password_repeat_input_field) {
-    if(password_input_field_or_password_repeat_input_field == "password_input_field"){
+    if (password_input_field_or_password_repeat_input_field == "password_input_field") {
         document.getElementsByClassName("pwd-validation")[0].style.visibility = "visible";
-    } else {
+    }
+    else {
         document.getElementsByClassName("pwd-validation")[1].style.visibility = "visible";
     }
 }
-export function hide_password_validation(password_input_field_or_password_repeat_input_field){
-    if(password_input_field_or_password_repeat_input_field == "password_input_field"){
+export function hide_password_validation(password_input_field_or_password_repeat_input_field) {
+    if (password_input_field_or_password_repeat_input_field == "password_input_field") {
         document.getElementsByClassName("pwd-validation")[0].style.visibility = "hidden";
-    } else {
+    }
+    else {
         document.getElementsByClassName("pwd-validation")[1].style.visibility = "hidden";
     }
 }
-export function validate_password(input_id){
+export function validate_password(input_id) {
     let pwd_input = document.getElementById(input_id);
     let lower_case_letters_error_msg = document.getElementById("lower_case");
     let upper_case_letters_error_msg = document.getElementById("upper_case");

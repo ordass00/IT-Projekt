@@ -2,7 +2,7 @@ import {showToastErrorMessage, showToastMessage} from "../shared/js/shared_funct
 
 function checkIngredientList(): boolean {
     let ingredientInput = (document.getElementById("ingredients_input") as HTMLInputElement).value;
-    var letters = /^[A-Za-z]+$/;
+    const letters = /^[A-Za-z]+$/;
     for (let i = 0; i < ingredientInput.length; i++) {
         if (!ingredientInput[i].match(letters) && ingredientInput[i] !== "," && ingredientInput[i] !== " ") {
             showToastMessage("wrong_ingredient_format_toast");

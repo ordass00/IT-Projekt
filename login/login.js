@@ -24,24 +24,27 @@ export function loginValidation() {
         body: JSON.stringify(reqObj),
     })
         .then(function (response) {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Error in response. (login_validation)");
-        })
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error("Error in response. (login_validation)");
+    })
         .then(function (data) {
-            if (data.error) {
-                showToastErrorMessage("error_toast", "error_text", data.errorText);
-            } else {
-                if(data["preferences_set"] == false){
-                    window.location.href = "../save_preferences/save_preferences.php";
-                } else if(data["ingredients_set"] == false) {
-                    window.location.href = "../ingredients_input/ingredients_input.php";
-                } else {
-                    window.location.href = "../meal_plan_overview/meal_plan_overview.php";
-                }
+        if (data.error) {
+            showToastErrorMessage("error_toast", "error_text", data.errorText);
+        }
+        else {
+            if (data["preferences_set"] == false) {
+                window.location.href = "../save_preferences/save_preferences.php";
             }
-        })["catch"](function (error) {
+            else if (data["ingredients_set"] == false) {
+                window.location.href = "../ingredients_input/ingredients_input.php";
+            }
+            else {
+                window.location.href = "../meal_plan_overview/meal_plan_overview.php";
+            }
+        }
+    })["catch"](function (error) {
         showToastErrorMessage("error_toast", "error_text", error.errorText);
     });
 }

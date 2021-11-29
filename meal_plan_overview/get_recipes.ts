@@ -2,10 +2,10 @@ import { showToastErrorMessage } from "../shared/js/shared_functions.js";
 
 function renderCard(meal: string, data: { Image: string; Title: string | null; }) {
     document.getElementById(meal + "_image_id")?.setAttribute("src", data.Image);
-    document.getElementById(meal + "_title_card_id").textContent = data.Title;
+    document.getElementById(meal + "_title_card_id")!.textContent = data.Title;
 }
 
-function createShoppingList(json_object: object, json_key: string) {
+function createShoppingList(json_object: any, json_key: string) {
     let ingredientsArray = []
     if(json_object[json_key].length!=0){
         ingredientsArray = json_object[json_key].split("; ");;
@@ -147,7 +147,7 @@ function seperateDivAndScript(elementsString: string){
     let substring_script_end = elementsString.search(/<\/script>/);
     substring = elementsString.substring(substring_div_end + "<script>".length, substring_script_end)
     if(substring.includes("fontSize:20") && substring.includes("rgb(75,192,192")){
-        substring = substring.replaceAll("rgb(75,192,192", "rgb(38,159,202")
+        substring = substring.replace(/rgb\(75,192,192/g, "rgb(38,159,202")
         substring = substring.replace("fontSize:20}", "fontSize:30, fontStyle: \"bold\"}, gridLines:{color:'black'}")
     }
     let substring_script = document.createElement("script")
@@ -204,7 +204,7 @@ export function printShoppingList(userId: number) {
                 showToastErrorMessage("error_toast", "error_text", data.errorText);
             } else {
                 data = data["result"];
-                document.getElementById("title_id").textContent = data.Title;
+                document.getElementById("title_id")!.textContent = data.Title;
                 createShoppingList(data, "UsedIngredients");
                 createShoppingList(data, "MissedIngredients");
                 window.print();

@@ -94,7 +94,7 @@ function generate_complex_search_url($preferences, $ingredientsAtHome, $type): s
     $url .= $ingredientsAtHome[count($ingredientsAtHome) - 1];
     $url .= "&type=" . $type;
     $url .= "&fillIngredients=true&sort=max-used-ingredients";
-    $url .= "&maxCalories=" . intdiv($preferences["Calories"], 3) . "&number=10&apiKey=fb1adad5e4dd4a7084841bb2a8146f94";
+    $url .= "&maxCalories=" . intdiv($preferences["Calories"], 3) . "&number=10&apiKey=" . API_KEY;
     return $url;
 }
 
@@ -127,8 +127,8 @@ function api_call($url): array|bool|string
 function get_taste_and_nutrient_visualization($id)
 {
     $response_array = array();
-    $response_array["tasteWidget"] = api_call("https://api.spoonacular.com/recipes/" . $id . "/tasteWidget?apiKey=fb1adad5e4dd4a7084841bb2a8146f94");
-    $response_array["nutritionWidget"] = api_call("https://api.spoonacular.com/recipes/" . $id . "/nutritionWidget?defaultCss=true&apiKey=fb1adad5e4dd4a7084841bb2a8146f94");
+    $response_array["tasteWidget"] = api_call("https://api.spoonacular.com/recipes/" . $id . "/tasteWidget?apiKey=" . API_KEY);
+    $response_array["nutritionWidget"] = api_call("https://api.spoonacular.com/recipes/" . $id . "/nutritionWidget?defaultCss=true&apiKey=" . API_KEY);
     return $response_array;
 }
 
@@ -217,5 +217,5 @@ function get_meal_with_title_used_ingredients_missed_ingredients($conn, $meal_id
 }
 
 function get_recipe_card($id){
-    return api_call("https://api.spoonacular.com/recipes/" . $id . "/card?mask=heartMask&backgroundColor=f9f7f8&apiKey=fb1adad5e4dd4a7084841bb2a8146f94");
+    return api_call("https://api.spoonacular.com/recipes/" . $id . "/card?mask=heartMask&backgroundColor=f9f7f8&apiKey=" . API_KEY);
 }
