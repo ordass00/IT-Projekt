@@ -36,7 +36,7 @@ export function hide_password_validation(password_input_field_or_password_repeat
         (document.getElementsByClassName("pwd-validation")[1] as HTMLInputElement).style.visibility = "hidden";
     }
 }
-export function validate_password(input_id): void{
+export function validate_password(input_id: string): void{
     let pwd_input = (document.getElementById(input_id) as HTMLInputElement);
     let lower_case_letters_error_msg = (document.getElementById("lower_case") as HTMLInputElement);
     let upper_case_letters_error_msg = (document.getElementById("upper_case") as HTMLInputElement);

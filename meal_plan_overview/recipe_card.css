@@ -4,7 +4,11 @@ body, html {
 }
 
 #anchor img {
-    height: 50em;
-    width: 35em;
-    margin-top: 12em;
+    height: 51em;
+    width: 36em;
+    margin-top: 13em;
+}
+
+#backButton{
+    margin-top: -2em !important;
 }
